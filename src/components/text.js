@@ -10,11 +10,12 @@ import delve from 'dlv';
  *
  *	When string lookup fails, renders its children as fallback text.
  *
- *	@name Text
- *	@param {Object} props
- *	@param {String} props.id			Key to look up in intl dictionary, within any parent scopes (`${scope1}.${scope2}.${id}`)
- *	@param {Object} [props.fields={}]	Template `{{field}}` values
- *	@param {Number} [props.plural]		Contextual "count", used to select plural forms from the intl definition
+ *	@param {Object} props				props
+ *	@param {String} props.id			Key to look up in intl dictionary, within any parent scopes (`$scope1.$scope2.$id`)
+ *	@param {Object} [props.fields={}]	Values to inject into template `{{fields}}`
+ *	@param {Number} [props.plural]		Integer "count", used to select plural forms
+ *	@param {Object} context
+ *	@param {Object} context.intl		[internal] dictionary and scope info
  *
  *	@example
  *	// If there is no dictionary in context..

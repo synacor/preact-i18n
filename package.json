@@ -56,7 +56,7 @@
     "chai-as-promised": "^6.0.0",
     "chai-subset": "^1.2.2",
     "diff": "^3.2.0",
-    "documentation": "^4.0.0-beta4",
+    "documentation": "^4.0.0-rc.1",
     "documentation-theme-default": "^3.0.0-beta1",
     "eslint": "^3.19.0",
     "eslint-config-synacor": "^1.0.0",

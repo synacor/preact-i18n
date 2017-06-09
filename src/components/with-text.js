@@ -8,8 +8,7 @@ import translateMapping from '../lib/translate-mapping';
  *
  *	@param {Object|Function|String} mapping		Maps prop names to intl keys (or `<Text>` nodes).
  *
- *	@example
- *	@withText({
+ *	@example @withText({
  *		placeholder: 'user.placeholder'
  *	})
  *	class Foo {
@@ -19,8 +18,7 @@ import translateMapping from '../lib/translate-mapping';
  *		}
  *	}
  *
- *	@example
- *	@withText({
+ *	@example @withText({
  *		placeholder: <Text id="user.placeholder">fallback text</Text>
  *	})
  *	class Foo {
@@ -29,10 +27,9 @@ import translateMapping from '../lib/translate-mapping';
  *		}
  *	}
  *
- *	@example
- *	// for Strings/Arrays, the last segment of the path is used as the prop name:
- *	@withText('user.placeholder')
+ *	@example @withText('user.placeholder')
  *	class Foo {
+ *		// for Strings/Arrays, the last path segment becomes the prop name:
  *		render({ placeholder }) {
  *			return <input placeholder={placeholder} />
  *		}
@@ -40,10 +37,8 @@ import translateMapping from '../lib/translate-mapping';
  *
  *	@example
  *	// Works with functional components, too:
- *	const Foo = withText('user.placeholder')(
- *		props => (
- *			<input placeholder={props.placeholder} />
- *		)
+ *	const Foo = withText('user.placeholder')( props =>
+ *		<input placeholder={props.placeholder} />
  *	)
  */
 export const withText = mapping => Child => (props, context) => {

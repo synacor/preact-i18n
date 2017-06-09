@@ -10,7 +10,7 @@
 -   Supports pluralization of strings using nested objects.
 -   Supports template `{{fields}}` in definition values
 
----
+* * *
 
 -   [Installation](#installation)   
 -   [Getting Started](#getting-started)   
@@ -252,15 +252,42 @@ based on a mapping to the dictionary & scope in context.
 **Examples**
 
 ```javascript
-// for Strings/Arrays, the last segment of the path is used as the prop name:
+@withText({
+	placeholder: 'user.placeholder'
+})
+class Foo {
+	// now the `placeholder` prop is our localized String:
+	render({ placeholder }) {
+		return <input placeholder={placeholder} />
+	}
+}
+```
+
+```javascript
+@withText({
+	placeholder: <Text id="user.placeholder">fallback text</Text>
+})
+class Foo {
+	render({ placeholder }) {
+		return <input placeholder={placeholder} />
+	}
+}
+```
+
+```javascript
+@withText('user.placeholder')
+class Foo {
+	// for Strings/Arrays, the last path segment becomes the prop name:
+	render({ placeholder }) {
+		return <input placeholder={placeholder} />
+	}
+}
 ```
 
 ```javascript
 // Works with functional components, too:
-const Foo = withText('user.placeholder')(
-	props => (
-		<input placeholder={props.placeholder} />
-	)
+const Foo = withText('user.placeholder')( props =>
+	<input placeholder={props.placeholder} />
 )
 ```
 
@@ -279,7 +306,3 @@ or it can take an annotation form like:
 -   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** If there are two arguments, the second argument is Passed as `props` to `<IntlProvider />`
     -   `options.scope`  Nest `definition` under a root key, and set the active scope for the tree (essentially prefixing all `<Text />` keys).
     -   `options.definition`  Merge the given definition into the current intl definition, giving the _current_ definition precedence (i.e., only adding keys, acting as defaults) (optional, default `{}`)
-
-#### intl
-
-The default export is an alias of [intl](#intl)

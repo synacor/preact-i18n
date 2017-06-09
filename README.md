@@ -1,4 +1,8 @@
-# preact-i18n
+<p align="center">
+  <h1>🌎 preact-i18n</h1>
+  <a href="https://www.npmjs.org/package/preact-i18n"><img src="https://img.shields.io/npm/v/preact-i18n.svg?style=flat" alt="npm"></a> <a href="https://travis-ci.org/synacor/preact-i18n"><img src="https://travis-ci.org/synacor/preact-i18n.svg?branch=master" alt="travis"></a>
+</p>
+
 
 **Simple localization for Preact.**
 

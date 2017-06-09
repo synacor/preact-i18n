@@ -1,5 +1,7 @@
 # preact-i18n
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/synacor/preact-i18n.svg)](https://greenkeeper.io/)
+
 **Simple localization for Preact.**
 
 -   Tiny: about 1.2kb gzipped

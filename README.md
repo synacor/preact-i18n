@@ -10,6 +10,21 @@
 -   Supports pluralization of strings using nested objects.
 -   Supports template `{{fields}}` in definition values
 
+---
+
+-   [Installation](#installation)   
+-   [Getting Started](#getting-started)   
+    -   [Fallback Text](#fallback-text)   
+    -   [Pluralization and Templating](#pluralization-and-templating)   
+-   [API](#api)   
+    -   [IntlProvider](#intlprovider)   
+    -   [Localizer](#localizer)   
+    -   [Text](#text)   
+    -   [withText](#withtext)   
+    -   [intl](#intl)   
+
+<!-- /MDTOC -->
+
 ## Installation
 
 ```sh

@@ -6,9 +6,6 @@ import { withText } from './components/with-text';
 
 export { intl, IntlProvider, Text, Localizer, withText };
 
-/** The default export is an alias of {@link intl}
- *	@function
- */
 intl.intl = intl;
 intl.IntlProvider = IntlProvider;
 intl.Text = Text;

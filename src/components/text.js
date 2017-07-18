@@ -67,3 +67,5 @@ export const Text = ({ id, children, plural, fields }, { intl }) => {
 
 	return value;
 };
+
+Text.displayName = 'Text';

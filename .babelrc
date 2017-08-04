@@ -1,0 +1,7 @@
+{
+  "presets": ["es2015"],
+  "plugins": [
+    "transform-object-assign",
+    ["transform-react-jsx", { "pragma": "h", "useBuiltIns": true }]
+  ]
+}

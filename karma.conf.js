@@ -22,13 +22,7 @@ module.exports = function(config) {
 				rules: [{
 					test: /\.jsx?$/,
 					exclude: /node_modules/,
-					loader: 'babel-loader',
-					options: {
-						presets: ['es2015', 'stage-0'],
-						plugins: [
-							['transform-react-jsx', { pragma: 'h' }]
-						]
-					}
+					loader: 'babel-loader'
 				}]
 			},
 			devtool: 'inline-source-map'

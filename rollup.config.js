@@ -1,5 +1,6 @@
-import buble from 'rollup-plugin-buble';
+import babel from 'rollup-plugin-babel';
 import memory from 'rollup-plugin-memory';
+import babelrc from 'babelrc-rollup'
 
 export default {
 	useStrict: false,
@@ -17,9 +18,6 @@ export default {
 			path: 'src/entry.js',
 			contents: "export { default } from './index';"
 		}),
-		buble({
-			jsx: 'h',
-			objectAssign: 'assign'
-		})
+		babel(babelrc())
 	]
 };

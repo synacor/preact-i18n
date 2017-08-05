@@ -1,7 +1,7 @@
 {
   "name": "preact-i18n",
   "amdName": "preactLocalize",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Preact internationalization, done simply.",
   "jsnext:main": "src/index.js",
   "umd:main": "dist/preact-i18n.umd.js",

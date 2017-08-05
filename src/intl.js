@@ -27,8 +27,12 @@ export const intl = (...args) => {
 };
 
 
-const intlProviderWrapper = (Child, options) => props => (
-	<IntlProvider {...(options || {})}>
-		<Child {...props} />
-	</IntlProvider>
-);
+const intlProviderWrapper = (Child, options) => {
+	const IntlProviderWrapper = props => (
+		<IntlProvider {...(options || {})}>
+			<Child {...props} />
+		</IntlProvider>
+	);
+	IntlProviderWrapper.displayName = 'IntlProviderWrapper';
+	return IntlProviderWrapper;
+};

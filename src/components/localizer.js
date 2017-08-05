@@ -29,3 +29,5 @@ export const Localizer = ({ children }, { intl }) => {
 	let child = children && children[0];
 	return child && cloneElement(child, translateMapping(child.attributes, intl, true));
 };
+
+Localizer.displayName = 'Localizer';

@@ -41,8 +41,12 @@ import translateMapping from '../lib/translate-mapping';
  *		<input placeholder={props.placeholder} />
  *	)
  */
-export const withText = mapping => Child => (props, context) => {
-	let map = typeof mapping==='function' ? mapping(props) : mapping;
-	let translations = translateMapping(map, context.intl);
-	return <Child {...props} {...translations} />;
+export const withText = mapping => Child => {
+	const WithText = (props, context) => {
+		let map = typeof mapping==='function' ? mapping(props) : mapping;
+		let translations = translateMapping(map, context.intl);
+		return <Child {...props} {...translations} />;
+	};
+	WithText.displayName = `WithText(${Child.displayName || Child.name})`;
+	return WithText;
 };

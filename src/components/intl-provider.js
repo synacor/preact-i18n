@@ -56,3 +56,5 @@ export class IntlProvider extends Component {
 		return children && children[0] || null;
 	}
 }
+
+IntlProvider.displayName = 'IntlProvider';

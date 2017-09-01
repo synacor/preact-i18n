@@ -27,8 +27,12 @@ export const intl = (...args) => {
 };
 
 
-const intlProviderWrapper = (Child, options) => props => (
-	<IntlProvider {...(options || {})}>
-		<Child {...props} />
-	</IntlProvider>
-);
+function intlProviderWrapper(Child, options) {
+	return function IntlProviderWrapper(props) {
+		return (
+			<IntlProvider {...(options || {})}>
+				<Child {...props} />
+			</IntlProvider>
+		);
+	};
+}

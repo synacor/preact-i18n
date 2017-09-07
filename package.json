@@ -18,7 +18,7 @@
     "minify:cjs": "uglifyjs $npm_package_main -c pure_getters  -m toplevel -o $npm_package_main --source-map content=${npm_package_main}.map,url=preact-i18n.js.map,filename=${npm_package_main}.map",
     "minify:umd": "uglifyjs $npm_package_umd_main -c pure_getters -m -o $npm_package_umd_main --source-map content=${npm_package_umd_main}.map,url=preact-i18n.umd.js.map,filename=${npm_package_umd_main}.map",
     "docs": "mkdirp docs && documentation readme -q --section API src && documentation build src -f html -o ./docs",
-    "size": "echo \"Gzipped Size: $(strip-json-comments --no-whitespace $npm_package_main | gzip-size)\"",
+    "size": "echo \"Gzipped Size: $(strip-json-comments --no-whitespace $npm_package_main | gzip-size --raw)\"",
     "release": "npm run build -s && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
   },
   "repository": "synacor/preact-i18n",

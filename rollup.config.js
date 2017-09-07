@@ -1,6 +1,6 @@
 import babel from 'rollup-plugin-babel';
 import memory from 'rollup-plugin-memory';
-import babelrc from 'babelrc-rollup'
+import babelrc from 'babelrc-rollup';
 
 export default {
 	useStrict: false,

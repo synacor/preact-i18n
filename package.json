@@ -3,9 +3,10 @@
   "amdName": "preactLocalize",
   "version": "1.0.1",
   "description": "Preact internationalization, done simply.",
-  "jsnext:main": "src/index.js",
-  "umd:main": "dist/preact-i18n.umd.js",
+  "source": "src/index.js",
+  "module": "dist/preact-i18n.esm.js",
   "main": "dist/preact-i18n.js",
+  "umd:main": "dist/preact-i18n.umd.js",
   "scripts": {
     "lint": "eslint src test",
     "test": "npm-run-all lint test:unit",
@@ -13,10 +14,11 @@
     "test:unit": "karma start karma.conf.js --single-run",
     "build": "npm-run-all clean -p rollup:* -p minify:* -s docs size",
     "clean": "rimraf dist && mkdirp dist",
-    "rollup:cjs": "rollup -c rollup.config.js -m -f cjs -n $npm_package_amdName $npm_package_jsnext_main -o $npm_package_main",
-    "rollup:umd": "rollup -c rollup.config.js -m -f umd -n $npm_package_amdName $npm_package_jsnext_main -o $npm_package_umd_main",
-    "minify:cjs": "uglifyjs $npm_package_main -c pure_getters  -m toplevel -o $npm_package_main --source-map content=${npm_package_main}.map,url=preact-i18n.js.map,filename=${npm_package_main}.map",
-    "minify:umd": "uglifyjs $npm_package_umd_main -c pure_getters -m -o $npm_package_umd_main --source-map content=${npm_package_umd_main}.map,url=preact-i18n.umd.js.map,filename=${npm_package_umd_main}.map",
+    "rollup:cjs": "rollup -c rollup.config.js -m -f cjs -n $npm_package_amdName $npm_package_source -o $npm_package_main",
+    "rollup:umd": "rollup -c rollup.config.js -m -f umd -n $npm_package_amdName $npm_package_source -o $npm_package_umd_main",
+    "rollup:esm": "rollup -c rollup.config.js -m -f es -n $npm_package_amdName $npm_package_source -o $npm_package_module",
+    "minify:cjs": "uglifyjs $npm_package_main -c pure_getters,pure_funcs=classCallCheck -m toplevel -o $npm_package_main --source-map content=${npm_package_main}.map,url=preact-i18n.js.map,filename=${npm_package_main}.map",
+    "minify:umd": "uglifyjs $npm_package_umd_main -c pure_getters,pure_funcs=classCallCheck -m -o $npm_package_umd_main --source-map content=${npm_package_umd_main}.map,url=preact-i18n.umd.js.map,filename=${npm_package_umd_main}.map",
     "docs": "mkdirp docs && documentation readme -q --section API src && documentation build src -f html -o ./docs",
     "size": "echo \"Gzipped Size: $(strip-json-comments --no-whitespace $npm_package_main | gzip-size --raw)\"",
     "release": "npm run build -s && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
@@ -36,12 +38,6 @@
     "src",
     "dist"
   ],
-  "babel": {
-    "presets": [
-      "es2015",
-      "stage-0"
-    ]
-  },
   "eslintConfig": {
     "extends": "eslint-config-synacor"
   },
@@ -52,8 +48,7 @@
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-plugin-transform-react-jsx": "^6.8.0",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-es2015-minimal-rollup": "^2.0.0",
+    "babel-preset-env": "^1.6.0",
     "babel-preset-stage-0": "^6.5.0",
     "babelrc-rollup": "^3.0.0",
     "chai": "^4.1.2",
@@ -85,6 +80,7 @@
     "rollup": "^0.45.2",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-memory": "^2.0.0",
+    "rollup-plugin-post-replace": "^1.0.0",
     "sinon": "^3.2.1",
     "sinon-chai": "^2.13.0",
     "strip-json-comments-cli": "^1.0.1",

@@ -1,6 +1,16 @@
 {
   "presets": [
-    ["es2015", { "loose": true }]
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["Last 2 versions", "IE >= 9"],
+        "uglify": true
+      },
+      "loose": true,
+      "exclude": [
+        "transform-es2015-typeof-symbol"
+      ]
+    }]
   ],
   "plugins": [
     "transform-object-assign",

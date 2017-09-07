@@ -1,6 +1,7 @@
 import babel from 'rollup-plugin-babel';
 import memory from 'rollup-plugin-memory';
 import babelrc from 'babelrc-rollup';
+import replace from 'rollup-plugin-post-replace';
 
 export default {
 	useStrict: false,
@@ -18,6 +19,9 @@ export default {
 			path: 'src/entry.js',
 			contents: "export { default } from './index';"
 		}),
-		babel(babelrc())
+		babel(babelrc()),
+		replace({
+			'throw ': 'return; throw '
+		})
 	]
 };

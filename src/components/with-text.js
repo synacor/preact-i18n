@@ -41,8 +41,12 @@ import translateMapping from '../lib/translate-mapping';
  *		<input placeholder={props.placeholder} />
  *	)
  */
-export const withText = mapping => Child => (props, context) => {
-	let map = typeof mapping==='function' ? mapping(props) : mapping;
-	let translations = translateMapping(map, context.intl);
-	return <Child {...props} {...translations} />;
-};
+export function withText(mapping) {
+	return function withTextWrapper(Child) {
+		return function WithTextWrapper(props, context) {
+			let map = typeof mapping==='function' ? mapping(props) : mapping;
+			let translations = translateMapping(map, context.intl);
+			return <Child {...props} {...translations} />;
+		};
+	};
+}

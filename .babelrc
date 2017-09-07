@@ -1,7 +1,19 @@
 {
-  "presets": ["es2015"],
+  "presets": [
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["Last 2 versions", "IE >= 9"],
+        "uglify": true
+      },
+      "loose": true,
+      "exclude": [
+        "transform-es2015-typeof-symbol"
+      ]
+    }]
+  ],
   "plugins": [
     "transform-object-assign",
-    ["transform-react-jsx", { "pragma": "h", "useBuiltIns": true }]
+    ["transform-react-jsx", { "pragma": "h" }]
   ]
 }

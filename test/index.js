@@ -126,7 +126,7 @@ describe('intl', () => {
 
 	describe('<Text>', () => {
 		it('should fall back if not wrapped in a Provider', () => {
-			let root = rndr(
+			rndr(
 				<div>
 					<Text>FOO</Text>
 				</div>
@@ -136,7 +136,7 @@ describe('intl', () => {
 		});
 
 		it('should render text', () => {
-			let root = rndr(
+			rndr(
 				<div>
 					<IntlProvider definition={{ foo: 'FOO!' }}>
 						<div>
@@ -274,7 +274,7 @@ describe('intl', () => {
 
 	describe('<Localizer>', () => {
 		it('should translate any <Text> props on its child', () => {
-			let root = rndr(
+			rndr(
 				<IntlProvider definition={{ input: { pl: 'type a name' } }}>
 					<div>
 						<Localizer>

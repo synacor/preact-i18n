@@ -128,8 +128,6 @@ In addition to [`<Text>`](#Text), [`withText()`](#withText) and [`<Localizer>`](
 
 ### IntlProvider
 
-**Extends Component**
-
 `<IntlProvider>` is a nestable internationalization definition provider.
 It exposes an Intl scope & definition into the tree,
 making them available to descendant components.

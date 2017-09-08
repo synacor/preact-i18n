@@ -1,4 +1,7 @@
 /* eslint-disable */
+
+var path = require('path');
+
 var REPORTER = process.env.REPORTER || (process.env.ENVIRONMENT==='ci' && 'junit') || '';
 
 module.exports = function(config) {
@@ -18,6 +21,11 @@ module.exports = function(config) {
 			'{src,test}/**/*': ['webpack', 'sourcemap']
 		},
 		webpack: {
+			resolve: {
+				alias: {
+					'preact-i18n': path.resolve(__dirname, process.env.TEST_PRODUCTION ? 'dist/preact-i18n' : 'src')
+				}
+			},
 			module: {
 				rules: [{
 					test: /\.jsx?$/,

@@ -1,6 +1,6 @@
 import { h, render } from 'preact';
 import 'preact-jsx-chai';
-import wrap, { intl, IntlProvider, Text, Localizer, withText } from '../src';
+import wrap, { intl, IntlProvider, Text, Localizer, withText } from 'preact-i18n';
 
 function Empty() {}
 

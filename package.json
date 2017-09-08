@@ -9,7 +9,7 @@
   "umd:main": "dist/preact-i18n.umd.js",
   "scripts": {
     "lint": "eslint src test",
-    "test": "npm-run-all lint test:unit test:prod",
+    "test": "npm-run-all lint build test:unit test:prod",
     "test:watch": "karma start karma.conf.js --no-single-run",
     "test:unit": "karma start karma.conf.js --single-run",
     "test:prod": "cross-env TEST_PRODUCTION=true karma start karma.conf.js --single-run",

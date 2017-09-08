@@ -6,11 +6,22 @@ export function defined(obj) {
 }
 
 
+/** A simpler Object.assign
+ *  @private
+ */
+export function assign(obj, props) {
+	for (let i in props) {
+		obj[i] = props[i];
+	}
+	return obj;
+}
+
+
 /** Recursively copy keys from `source` to `target`, skipping truthy values already in `target`.
  *	@private
  */
 export function deepAssign(target, source) {
-	let out = Object.assign({}, target);
+	let out = assign({}, target);
 	for (let i in source) {
 		if (source.hasOwnProperty(i)) {
 			if (target[i] && source[i] && typeof target[i]==='object' && typeof source[i]==='object') {

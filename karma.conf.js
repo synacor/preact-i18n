@@ -30,7 +30,20 @@ module.exports = function(config) {
 				rules: [{
 					test: /\.jsx?$/,
 					exclude: /node_modules/,
-					loader: 'babel-loader'
+					loader: 'babel-loader',
+					options: {
+						presets: [
+							['env', {
+								loose: true,
+								exclude: [
+								'transform-es2015-typeof-symbol'
+								]
+							}]
+						],
+						plugins: [
+							['transform-react-jsx', { pragma: 'h' }]
+						]
+					}
 				}]
 			},
 			devtool: 'inline-source-map'

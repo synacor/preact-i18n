@@ -1,8 +1,6 @@
 /*eslint-disable*/
-import babel from 'rollup-plugin-babel';
 import memory from 'rollup-plugin-memory';
-import babelrc from 'babelrc-rollup';
-import replace from 'rollup-plugin-post-replace';
+import buble from 'rollup-plugin-buble';
 
 var FORMAT = process.env.FORMAT;
 
@@ -22,9 +20,8 @@ export default {
 			path: 'src/entry.js',
 			contents: "export { default } from './index';"
 		}),
-		babel(babelrc()),
-		replace({
-			'throw ': 'return; throw '
+		buble({
+			jsx: 'h'
 		})
 	].filter(Boolean)
 };

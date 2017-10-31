@@ -44,7 +44,7 @@ import translateMapping from '../lib/translate-mapping';
 export function withText(mapping) {
 	return function withTextWrapper(Child) {
 		return function WithTextWrapper(props, context) {
-			let map = typeof mapping==='function' ? mapping(props) : mapping;
+			let map = typeof mapping==='function' ? mapping(props, context) : mapping;
 			let translations = translateMapping(map, context.intl);
 			return <Child {...props} {...translations} />;
 		};

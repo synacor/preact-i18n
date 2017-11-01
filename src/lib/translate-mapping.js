@@ -1,4 +1,4 @@
-import { select } from './util';
+import { assign, select } from './util';
 import translate from './translate';
 import { Text } from '../components/text';
 
@@ -27,7 +27,7 @@ export default function translateMapping(props, intl, onlyTextNodes) {
 			}
 			else if (def.nodeName===Text) {
 				// it's a <Text />, just grab its props:
-				def = Object.assign({
+				def = assign({
 					fallback: def.children && def.children[0]
 				}, def.attributes);
 				out[name] = translate(def.id, intl.scope, intl.dictionary, def.fields, def.plural, def.fallback);

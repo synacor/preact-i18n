@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import { deepAssign } from '../lib/util';
+import { assign, deepAssign } from '../lib/util';
 
 
 const URL_FLAG = /[?&#]intl=show/;
@@ -35,7 +35,7 @@ const URL_FLAG = /[?&#]intl=show/;
 export class IntlProvider extends Component {
 	getChildContext() {
 		let { scope, definition, mark } = this.props,
-			intl = Object.assign({}, this.context.intl || {});
+			intl = assign({}, this.context.intl || {});
 
 		// set active scope for the tree if given
 		if (scope) intl.scope = scope;

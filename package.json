@@ -9,11 +9,11 @@
   "umd:main": "dist/preact-i18n.umd.js",
   "scripts": {
     "lint": "eslint src test",
-    "test": "npm-run-all lint build test:unit test:prod",
+    "test": "npm-run-all --silent lint build test:unit test:prod",
     "test:watch": "karma start karma.conf.js --no-single-run",
     "test:unit": "karma start karma.conf.js --single-run",
     "test:prod": "cross-env TEST_PRODUCTION=true karma start karma.conf.js --single-run",
-    "build": "npm-run-all clean -p rollup:* -p minify:* -s docs size",
+    "build": "npm-run-all --silent clean -p rollup:* -p minify:* -s docs size",
     "clean": "rimraf dist && mkdirp dist",
     "rollup:cjs": "rollup -c rollup.config.js -m -f cjs -n $npm_package_amdName $npm_package_source -o $npm_package_main",
     "rollup:umd": "rollup -c rollup.config.js -m -f umd -n $npm_package_amdName $npm_package_source -o $npm_package_umd_main",
@@ -34,25 +34,24 @@
   "authors": [
     "Jason Miller <jasonmiller@synacor.com>"
   ],
-  "license": "BSD 3-Clause",
+  "license": "BSD-3-Clause",
   "files": [
     "src",
     "dist"
   ],
   "eslintConfig": {
-    "extends": "eslint-config-synacor"
+    "extends": "eslint-config-synacor",
+    "rules": {
+      "guard-for-in": 0
+    }
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.2",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-plugin-transform-react-jsx": "^6.8.0",
-    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "babelrc-rollup": "^3.0.0",
+    "buble": "^0.15.2",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "cross-env": "^5.0.5",
@@ -81,9 +80,8 @@
     "preact-jsx-chai": "^2.2.1",
     "rimraf": "^2.5.4",
     "rollup": "^0.45.2",
-    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-memory": "^2.0.0",
-    "rollup-plugin-post-replace": "^1.0.0",
     "sinon": "^3.2.1",
     "sinon-chai": "^2.13.0",
     "strip-json-comments-cli": "^1.0.1",

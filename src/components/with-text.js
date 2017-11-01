@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import translateMapping from '../lib/translate-mapping';
+import { assign } from '../lib/util';
 
 /** `@withText()` is a Higher Order Component, often used as a decorator.
  *
@@ -46,7 +47,7 @@ export function withText(mapping) {
 		return function WithTextWrapper(props, context) {
 			let map = typeof mapping==='function' ? mapping(props, context) : mapping;
 			let translations = translateMapping(map, context.intl);
-			return <Child {...props} {...translations} />;
+			return h(Child, assign(assign({}, props), translations));
 		};
 	};
 }

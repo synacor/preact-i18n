@@ -1,6 +1,7 @@
 import { h, render } from 'preact';
 import 'preact-jsx-chai';
-import wrap, { intl, IntlProvider, Text, Localizer, withText } from 'preact-i18n';
+import wrap, { intl, IntlProvider, Text, MarkupText, Localizer, withText } from 'preact-i18n';
+/* eslint-disable react/no-danger */
 
 function Empty() {}
 
@@ -135,7 +136,7 @@ describe('intl', () => {
 			expect(root.innerHTML).to.equal('FOO');
 		});
 
-		it('should render text', () => {
+		it('should render text without scope', () => {
 			rndr(
 				<div>
 					<IntlProvider definition={{ foo: 'FOO!' }}>
@@ -147,6 +148,9 @@ describe('intl', () => {
 			);
 
 			expect(root.innerHTML).to.equal('<div>FOO!</div>');
+		});
+
+		it('should render text with scope', () => {
 
 			rndr(
 				<div>
@@ -159,7 +163,25 @@ describe('intl', () => {
 			);
 
 			expect(root.innerHTML, '').to.equal('<div>BAR!</div>');
+		});
 
+		it('should render html markup as string data, not markup', () => {
+
+			rndr(
+				<div>
+					<IntlProvider definition={{ foo: '<b>FOO</b>' }} >
+						<div>
+							<Text id="foo" />
+						</div>
+					</IntlProvider>
+				</div>
+			);
+
+			expect(root.innerHTML, '').to.equal('<div>&lt;b&gt;FOO&lt;/b&gt;</div>');
+		});
+
+
+		it('should render default when requested id is not present', () => {
 			rndr(
 				<div>
 					<IntlProvider scope="foo" definition={{ foo: { bar: 'BAR!' } }}>
@@ -204,6 +226,126 @@ describe('intl', () => {
 				);
 			});
 		});
+	});
+
+	describe('<MarkupText>', () => {
+
+		it('should render nothing if no key or fallback is found', () => {
+			rndr(
+				<div>
+					<MarkupText />
+				</div>
+			);
+
+			expect(root.innerHTML).to.equal('');
+		});
+
+
+		it('should fall back if not wrapped in a Provider', () => {
+			rndr(
+				<div>
+					<MarkupText><b>FOO</b></MarkupText>
+				</div>
+			);
+
+			expect(root.innerHTML).to.equal('<span><b>FOO</b></span>');
+		});
+
+		it('should render text without scope', () => {
+			rndr(
+				<div>
+					<IntlProvider definition={{ foo: 'FOO!' }}>
+						<div>
+							<MarkupText id="foo" />
+						</div>
+					</IntlProvider>
+				</div>
+			);
+
+			expect(root.innerHTML).to.equal('<div><span>FOO!</span></div>');
+		});
+
+		it('should render text with scope', () => {
+
+			rndr(
+				<div>
+					<IntlProvider scope="foo" definition={{ foo: { bar: 'BAR!' } }}>
+						<div>
+							<MarkupText id="bar" />
+						</div>
+					</IntlProvider>
+				</div>
+			);
+
+			expect(root.innerHTML, '').to.equal('<div><span>BAR!</span></div>');
+		});
+
+
+		it('should render default when requested id is not present', () => {
+			rndr(
+				<div>
+					<IntlProvider scope="foo" definition={{ foo: { bar: 'BAR!' } }}>
+						<div>
+							<MarkupText id="asdf"><b>DEFAULT</b></MarkupText>
+						</div>
+					</IntlProvider>
+				</div>
+			);
+
+			expect(root.innerHTML, '').to.equal('<div><span><b>DEFAULT</b></span></div>');
+		});
+
+		it('should render html markup as markup', () => {
+
+			rndr(
+				<div>
+					<IntlProvider definition={{ foo: '<b>FOO</b>' }} >
+						<div>
+							<MarkupText id="foo" />
+						</div>
+					</IntlProvider>
+				</div>
+			);
+
+			expect(root.innerHTML, '').to.equal('<div><span><b>FOO</b></span></div>');
+		});
+
+		describe('mark', () => {
+			it('should render translations with a green wrapping <mark>', () => {
+				expect(
+					<IntlProvider mark definition={{ bar: '<b>BAR!</b>' }}>
+						<MarkupText id="bar" />
+					</IntlProvider>
+				).to.eql(
+					<mark style="background: rgba(119,231,117,.5)" title="bar">
+						<span dangerouslySetInnerHTML={{ __html: '<b>BAR!</b>' }} />
+					</mark>);
+			});
+
+			it('should render translations relying on a fallback with a yellow wrapping <mark>', () => {
+				expect(
+					<IntlProvider mark definition={{ bar: 'BAR!' }}>
+						<MarkupText id="foo"><b>Fooey</b></MarkupText>
+					</IntlProvider>
+				).to.eql(
+					<mark style="background: rgba(229,226,41,.5)" title="foo">
+						<span><b>Fooey</b></span>
+					</mark>
+				);
+			});
+
+			it('should render missing translations with an orange wrapping <mark>', () => {
+				expect(
+					<IntlProvider mark definition={{ bar: 'BAR!' }}>
+						<MarkupText id="foo" />
+					</IntlProvider>
+				).to.eql(
+					<mark style="background: rgba(228,147,51,.5)" title="foo" />
+				);
+			});
+		});
+
+
 	});
 
 	describe('withText()', () => {
@@ -270,6 +412,7 @@ describe('intl', () => {
 				withfallback: 'fallback'
 			});
 		});
+
 	});
 
 	describe('<Localizer>', () => {
@@ -293,5 +436,6 @@ describe('intl', () => {
 
 			expect(root).to.have.property('innerHTML', `<input placeholder="type a name" title="blah" type="email" minlength="0" maxlength="1" required="">`);
 		});
+
 	});
 });

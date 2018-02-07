@@ -41,7 +41,8 @@ module.exports = function(config) {
 							}]
 						],
 						plugins: [
-							['transform-react-jsx', { pragma: 'h' }]
+							['transform-react-jsx', { pragma: 'h' }],
+							'transform-object-rest-spread'
 						]
 					}
 				}]

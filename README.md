@@ -4,7 +4,7 @@
 
 **Simple localization for Preact.**
 
--   Tiny: about 1.2kb gzipped
+-   Tiny: about 1.3kb gzipped
 -   Supports dictionary and key scopes/namespaces while maintaining a global dictionary
 -   Supports nested dictionaries:
     -   Wrap your component in a default dictionary and scope key

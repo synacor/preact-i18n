@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import translate from '../lib/translate';
-import delve from 'dlv';
+import { HighlightI18N } from './highlight-i18n';
 
 /** `<Text>` renders internationalized text.
  *	It attempts to look up translated values from a dictionary in context.
@@ -39,7 +39,8 @@ import delve from 'dlv';
  *	// ..produces the text:
  *	"Le Feux"
  */
-export const Text = ({ id, children, plural, fields }, { intl }) => {
+export function Text({ id, children, plural, fields }, { intl }) {
+
 	let fallback = children && children[0];
 
 	let value = translate(
@@ -51,19 +52,5 @@ export const Text = ({ id, children, plural, fields }, { intl }) => {
 		fallback
 	);
 
-	if (intl && intl.mark) {
-		const dictionaryKey = `dictionary${intl && intl.scope ? `.${intl.scope}` : ''}.${id}`;
-		return h('mark', {
-			style: 'background: ' + (
-				value
-					? delve(intl, dictionaryKey)
-						? 'rgba(119,231,117,.5)'      // Green = this string is fully internationalized
-						: 'rgba(229,226,41,.5)'       // Yellow = this string does not have a value in the dictionary, but it has a fallback value
-					: 'rgba(228,147,51,.5)'         // Red = this string has no value and no fallback
-			),
-			title: id
-		}, value);
-	}
-
-	return value;
-};
+	return <HighlightI18N id={id} value={value} />;
+}

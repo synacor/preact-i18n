@@ -251,6 +251,16 @@ describe('intl', () => {
 			expect(root.innerHTML).to.equal('<span><b>FOO</b></span>');
 		});
 
+		it('should render multi-child fallback', () => {
+			rndr(
+				<div>
+					<MarkupText>This <b>is the fallback</b> with multiple children</MarkupText>
+				</div>
+			);
+
+			expect(root.innerHTML).to.equal('<span>This <b>is the fallback</b> with multiple children</span>');
+		});
+
 		it('should render text without scope', () => {
 			rndr(
 				<div>

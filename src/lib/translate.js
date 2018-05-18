@@ -12,7 +12,7 @@ import template from './template';
  *	@param {Object} dictionary		A nested object containing translations
  *	@param {Object} [fields={}]		Template fields for use by translated strings
  *	@param {Number} [plural]		Indicates a quantity, used to trigger pluralization
- *	@param {String} [fallback='']	Text to return if no translation is found
+ *	@param {String|Array} [fallback]	Text to return if no translation is found
  *	@returns {String} translated
  */
 export default function translate(id, scope, dictionary, fields, plural, fallback) {

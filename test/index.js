@@ -295,6 +295,20 @@ describe('intl', () => {
 			expect(root.innerHTML, '').to.equal('<div><span><b>DEFAULT</b></span></div>');
 		});
 
+		it('should render default with multiple children when requested id is not present', () => {
+			rndr(
+				<div>
+					<IntlProvider scope="foo" definition={{ foo: { bar: 'BAR!' } }}>
+						<div>
+							<MarkupText id="asdf"><b>DEFAULT</b> TEXT</MarkupText>
+						</div>
+					</IntlProvider>
+				</div>
+			);
+
+			expect(root.innerHTML, '').to.equal('<div><span><b>DEFAULT</b> TEXT</span></div>');
+		});
+
 		it('should render html markup as markup', () => {
 
 			rndr(

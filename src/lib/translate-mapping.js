@@ -27,8 +27,10 @@ export default function translateMapping(props, intl, onlyTextNodes) {
 			}
 			else if (def.nodeName===Text) {
 				// it's a <Text />, just grab its props:
+				// In preact children is always an array
+				// so no need to check if children is array or string
 				def = assign({
-					fallback: def.children && def.children[0]
+					fallback: def.children && def.children.length <= 1 ? def.children[0] : def.children
 				}, def.attributes);
 				out[name] = translate(def.id, intl.scope, intl.dictionary, def.fields, def.plural, def.fallback);
 			}

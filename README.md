@@ -11,6 +11,7 @@
     -   Wrap it again later on (in an app!) to override the defaults
 -   Supports pluralization of strings using nested objects.
 -   Supports template `{{fields}}` in definition values
+-   Has a companion [ESLint plugin](https://www.npmjs.com/package/eslint-plugin-preact-i18n) to help catch bugs early
 
 * * *
 
@@ -18,6 +19,7 @@
 -   [Getting Started](#getting-started)   
     -   [Fallback Text](#fallback-text)   
     -   [Pluralization and Templating](#pluralization-and-templating)   
+-   [ESLint Plugin](#eslint-plugin)
 -   [API](#api)   
 
 <!-- /MDTOC -->
@@ -114,6 +116,9 @@ Taking `<Text id="news.totalStories" ..>` from our example:
 -   `<.. plural={3} fields={{ count: 3 }}>` renders `3 articles`
 
 In addition to [`<Text>`](#Text), [`withText()`](#withText) and [`<Localizer>`](#Localizer) provide ways to translate more than just display text - HTML attributes, component props, arbitrary Strings, etc.
+
+## ESLint Plugin
+A companion ESLint plugin exists, [eslint-plugin-preact-i18n](https://www.npmjs.com/package/eslint-plugin-preact-i18n), which has several rules that help spot common issues like un-i18n'd text, misconfigured tags, and missing keys, that are beneficial in spotting defects early and ensuring that your application is properly i18n'd.
 
 * * *
 

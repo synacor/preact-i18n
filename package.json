@@ -1,7 +1,7 @@
 {
   "name": "preact-i18n",
   "amdName": "preactLocalize",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Preact internationalization, done simply.",
   "source": "src/index.js",
   "module": "dist/preact-i18n.esm.js",
@@ -32,7 +32,8 @@
   ],
   "homepage": "https://github.com/synacor/preact-i18n",
   "authors": [
-    "Jason Miller <jasonmiller@synacor.com>"
+    "Jason Miller <jasonmiller@synacor.com>",
+    "Bill Neff <billneff79@gmail.com>"
   ],
   "license": "BSD-3-Clause",
   "files": [

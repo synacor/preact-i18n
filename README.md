@@ -118,6 +118,7 @@ Taking `<Text id="news.totalStories" ..>` from our example:
 In addition to [`<Text>`](#Text), [`withText()`](#withText) and [`<Localizer>`](#Localizer) provide ways to translate more than just display text - HTML attributes, component props, arbitrary Strings, etc.
 
 ## ESLint Plugin
+
 A companion ESLint plugin exists, [eslint-plugin-preact-i18n](https://www.npmjs.com/package/eslint-plugin-preact-i18n), which has several rules that help spot common issues like un-i18n'd text, misconfigured tags, and missing keys, that are beneficial in spotting defects early and ensuring that your application is properly i18n'd.
 
 * * *

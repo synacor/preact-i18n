@@ -1,5 +1,4 @@
-# preact-i18n 🌎 [![npm](https://img.shields.io/npm/v/preact-i18n.svg?style=flat)](https://npm.im/preact-i18n) [![travis](https://travis-ci.org/synacor/preact-i18n.svg?branch=master)](https://travis-ci.org/synacor/preact-i18n)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsynacor%2Fpreact-i18n.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsynacor%2Fpreact-i18n?ref=badge_shield)
+# preact-i18n 🌎 [![npm](https://img.shields.io/npm/v/preact-i18n.svg?style=flat)](https://npm.im/preact-i18n) [![travis](https://travis-ci.org/synacor/preact-i18n.svg?branch=master)](https://travis-ci.org/synacor/preact-i18n) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsynacor%2Fpreact-i18n.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsynacor%2Fpreact-i18n?ref=badge_shield)
 
 <img src="resources/example.png" width="600" alt="Usage example" />
 

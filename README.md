@@ -1,4 +1,5 @@
 # preact-i18n 🌎 [![npm](https://img.shields.io/npm/v/preact-i18n.svg?style=flat)](https://npm.im/preact-i18n) [![travis](https://travis-ci.org/synacor/preact-i18n.svg?branch=master)](https://travis-ci.org/synacor/preact-i18n)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsynacor%2Fpreact-i18n.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsynacor%2Fpreact-i18n?ref=badge_shield)
 
 <img src="resources/example.png" width="600" alt="Usage example" />
 
@@ -363,3 +364,7 @@ or it can take an annotation form like:
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** If there are two arguments, the second argument is Passed as `props` to `<IntlProvider />`
     -   `options.scope`  Nest `definition` under a root key, and set the active scope for the tree (essentially prefixing all `<Text />` keys).
     -   `options.definition`  Merge the given definition into the current intl definition, giving the _current_ definition precedence (i.e., only adding keys, acting as defaults) (optional, default `{}`)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsynacor%2Fpreact-i18n.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsynacor%2Fpreact-i18n?ref=badge_large)

@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import translate from '../lib/translate';
+import translateMapping from '../lib/translate-mapping';
 import { HighlightI18N } from './highlight-i18n';
 
 /** `<Text>` renders internationalized text.
@@ -47,7 +48,7 @@ export function Text({ id, children, plural, fields }, { intl }) {
 		id,
 		intl && intl.scope,
 		intl && intl.dictionary,
-		fields,
+		translateMapping(fields, intl, true),
 		plural,
 		fallback
 	);

@@ -2,11 +2,13 @@
 
 var path = require('path');
 
+var pkg = require('./package.json');
+
 var REPORTER = process.env.REPORTER || (process.env.ENVIRONMENT==='ci' && 'junit') || '';
 
 module.exports = function(config) {
 	config.set({
-		browsers: ['PhantomJS'],
+		browsers: ['ChromeHeadless'],
 		frameworks: ['mocha', 'chai-sinon'],
 		reporters: ['mocha'].concat(REPORTER.split(/[, ]/)).filter(dedupe),
 		junitReporter: {
@@ -15,15 +17,17 @@ module.exports = function(config) {
 		},
 		mochaReporter: { showDiff: true },
 		files: [
-			{ pattern: 'test/**/*.js', watched: false }
+			'test/**/*.js'
 		],
 		preprocessors: {
 			'{src,test}/**/*': ['webpack', 'sourcemap']
 		},
 		webpack: {
+			mode: 'development',
+			devtool: 'inline-source-map',
 			resolve: {
 				alias: {
-					'preact-i18n': path.resolve(__dirname, process.env.TEST_PRODUCTION ? 'dist/preact-i18n' : 'src')
+					'preact-i18n': path.resolve(__dirname, process.env.TEST_PRODUCTION ? pkg.main : 'src')
 				}
 			},
 			module: {
@@ -32,24 +36,15 @@ module.exports = function(config) {
 					exclude: /node_modules/,
 					loader: 'babel-loader',
 					options: {
-						presets: [
-							['env', {
-								loose: true,
-								exclude: [
-								'transform-es2015-typeof-symbol'
-								]
-							}]
-						],
+						presets: [ '@babel/env' ],
 						plugins: [
-							['transform-react-jsx', { pragma: 'h' }],
-							'transform-object-rest-spread'
+							['@babel/plugin-transform-react-jsx', { pragma: 'h' }]
 						]
 					}
 				}]
 			},
-			devtool: 'inline-source-map'
 		},
-		webpackServer: { noInfo: true }
+		webpackServer: { stats: 'errors-only' }
 	});
 };
 

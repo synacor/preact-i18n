@@ -5,15 +5,17 @@ import buble from 'rollup-plugin-buble';
 var FORMAT = process.env.FORMAT;
 
 export default {
-	useStrict: false,
-	exports: FORMAT==='es' ? null : 'default',
 	external: [
 		'preact',
 		'dlv'
 	],
-	globals: {
-		preact: 'preact',
-		dlv: 'dlv'
+	output: {
+		strict: false,
+		exports: FORMAT==='es' ? null : 'named',
+		globals: {
+			preact: 'preact',
+			dlv: 'dlv'
+		}
 	},
 	plugins: [
 		FORMAT!=='es' && memory({

@@ -130,11 +130,22 @@ A companion ESLint plugin exists, [eslint-plugin-preact-i18n](https://www.npmjs.
 #### Table of Contents
 
 -   [IntlProvider](#intlprovider)
+    -   [Parameters](#parameters)
+    -   [Examples](#examples)
 -   [Localizer](#localizer)
+    -   [Parameters](#parameters-1)
+    -   [Examples](#examples-1)
 -   [MarkupText](#markuptext)
+    -   [Parameters](#parameters-2)
+    -   [Examples](#examples-2)
 -   [Text](#text)
+    -   [Parameters](#parameters-3)
+    -   [Examples](#examples-3)
 -   [withText](#withtext)
+    -   [Parameters](#parameters-4)
+    -   [Examples](#examples-4)
 -   [intl](#intl)
+    -   [Parameters](#parameters-5)
 
 ### IntlProvider
 
@@ -146,14 +157,14 @@ making them available to descendant components.
 > This means lower-level components can set their defaults by wrapping themselves
 > in an `<IntlProvider>`, but still remain localizable by their parent components.
 
-**Parameters**
+#### Parameters
 
 -   `props`  
     -   `props.scope` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Nest `definition` under a root key, and set the active scope for the tree (essentially prefixing all `<Text />` keys).
     -   `props.mark` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If `true`, all `<Text>` elements will be shown with a red/green background indicating whether they have valid Intl keys. (optional, default `false`)
     -   `props.definition` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Merge the given definition into the current intl definition, giving the _current_ definition precedence (i.e., only adding keys, acting as defaults) (optional, default `{}`)
 
-**Examples**
+#### Examples
 
 ```javascript
 // generally imported from a JSON file:
@@ -174,14 +185,14 @@ let definition = {
 `<Localizer />` is a Compositional Component.
 It "renders" out any `<Text />` values in its child's props.
 
-**Parameters**
+#### Parameters
 
 -   `props` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `props.children` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Child components with props to localize.
 -   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `context.intl` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** [internal] dictionary and scope info
 
-**Examples**
+#### Examples
 
 ```javascript
 <Localizer>
@@ -205,7 +216,7 @@ It "renders" out any `<Text />` values in its child's props.
 
 `<MarkupText>` is just like [Text](#text) but it can also contain html markup in rendered strings.  It wraps its contents in a `<span>` tag.
 
-**Parameters**
+#### Parameters
 
 -   `props` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** props
     -   `props.id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Key to look up in intl dictionary, within any parent scopes (`$scope1.$scope2.$id`)
@@ -214,7 +225,7 @@ It "renders" out any `<Text />` values in its child's props.
 -   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `context.intl` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** [internal] dictionary and scope info
 
-**Examples**
+#### Examples
 
 ```javascript
 // If there is no dictionary in context..
@@ -258,7 +269,7 @@ which injects values from the `fields` prop.
 
 When string lookup fails, renders its children as fallback text.
 
-**Parameters**
+#### Parameters
 
 -   `props` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** props
     -   `props.id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Key to look up in intl dictionary, within any parent scopes (`$scope1.$scope2.$id`)
@@ -268,7 +279,7 @@ When string lookup fails, renders its children as fallback text.
 -   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `context.intl` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** [internal] dictionary and scope info
 
-**Examples**
+#### Examples
 
 ```javascript
 // If there is no dictionary in context..
@@ -302,11 +313,11 @@ When string lookup fails, renders its children as fallback text.
 It wraps a child component and passes it translations
 based on a mapping to the dictionary & scope in context.
 
-**Parameters**
+#### Parameters
 
 -   `mapping` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function) \| [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))** Maps prop names to intl keys (or `<Text>` nodes).
 
-**Examples**
+#### Examples
 
 ```javascript
 @withText({
@@ -357,13 +368,13 @@ intl(ComponentToWrap, options)
 
 or it can take an annotation form like:
 
-**Parameters**
+#### Parameters
 
 -   `Child`  
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** If there are two arguments, the second argument is Passed as `props` to `<IntlProvider />`
     -   `options.scope`  Nest `definition` under a root key, and set the active scope for the tree (essentially prefixing all `<Text />` keys).
     -   `options.definition`  Merge the given definition into the current intl definition, giving the _current_ definition precedence (i.e., only adding keys, acting as defaults) (optional, default `{}`)
 
-
 ## License
+
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsynacor%2Fpreact-i18n.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsynacor%2Fpreact-i18n?ref=badge_large)

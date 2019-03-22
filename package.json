@@ -8,7 +8,7 @@
   "main": "dist/preact-i18n.js",
   "umd:main": "dist/preact-i18n.umd.js",
   "scripts": {
-    "test": "npm-run-all --silent -p lint build test:unit test:prod",
+    "test": "npm-run-all --silent -p lint build test:unit -s test:prod",
     "lint": "eslint src test",
     "test:watch": "npm run test:unit -- --no-single-run",
     "test:unit": "karma start karma.conf.js --single-run",

@@ -22,11 +22,14 @@ export function intl(Child, options) {
 		options = Child;
 		return Child => intl(Child, options);
 	}
-	return function IntlProviderWrapper(props) {
+	function IntlProviderWrapper(props) {
 		return h(
 			IntlProvider,
 			options || {},
 			h(Child, props)
 		);
-	};
+	}
+
+	IntlProviderWrapper.getWrappedComponent = Child && Child.getWrappedComponent || (() => Child);
+	return IntlProviderWrapper;
 }

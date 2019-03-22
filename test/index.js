@@ -47,6 +47,28 @@ describe('intl', () => {
 		);
 	});
 
+	describe('getWrappedComponent()', () => {
+
+		it('should be a function', () => {
+			let Wrapped = intl(options)(sinon.spy());
+			expect(Wrapped.getWrappedComponent).to.be.a('function');
+		});
+
+		it('should return the Child component that it is wrapping', () => {
+			let Foo = sinon.spy();
+			let Wrapped = intl(options)(Foo);
+			expect(Wrapped.getWrappedComponent()).to.equal(Foo);
+		});
+
+		it('should recursively call getWrappedComponent() on Child components to return the first non-decorator Child', () => {
+			let Foo = sinon.spy();
+			//Wrap Foo in two layers of configuration to make sure Foo is returned by the top level call to getWrappedComponent
+			let Wrapped = intl(options)(intl(options)(Foo));
+			expect(Wrapped.getWrappedComponent()).to.equal(Foo);
+		});
+
+	});
+
 
 	describe('<IntlProvider>', () => {
 		it('should provide context', () => {
@@ -421,6 +443,28 @@ describe('intl', () => {
 				withchild: 'child',
 				withfallback: 'fallback'
 			});
+		});
+
+		describe('getWrappedComponent()', () => {
+
+			it('should be a function', () => {
+				const Wrapped = withText(['foo','bar','baz'])(sinon.spy());
+				expect(Wrapped.getWrappedComponent).to.be.a('function');
+			});
+
+			it('should return the Child component that it is wrapping', () => {
+				let Foo = sinon.spy();
+				let Wrapped = withText(['foo','bar','baz'])(Foo);
+				expect(Wrapped.getWrappedComponent()).to.equal(Foo);
+			});
+
+			it('should recursively call getWrappedComponent() on Child components to return the first non-decorator Child', () => {
+				let Foo = sinon.spy();
+				//Wrap Foo in two layers of configuration to make sure Foo is returned by the top level call to getWrappedComponent
+				let Wrapped = withText(['foo','bar','baz'])(withText(['buzz'])(Foo));
+				expect(Wrapped.getWrappedComponent()).to.equal(Foo);
+			});
+
 		});
 
 	});

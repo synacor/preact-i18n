@@ -352,11 +352,27 @@ class Foo {
 }
 ```
 
+Works with functional components, too
+
+
 ```javascript
-// Works with functional components, too:
 const Foo = withText('user.placeholder')( props =>
 	<input placeholder={props.placeholder} />
 )
+```
+
+getWrappedComponent() returns wrapped child Component
+
+
+```javascript
+class Foo {
+	// for Strings/Arrays, the last path segment becomes the prop name:
+	render({ placeholder }) {
+		return <input placeholder={placeholder} />
+	}
+}
+const WrappedFoo = withText('user.placeholer')(Foo);
+WrappedFoo.getWrappedComponent() === Foo; // true
 ```
 
 ### intl

@@ -365,12 +365,7 @@ getWrappedComponent() returns wrapped child Component
 
 
 ```javascript
-class Foo {
-	// for Strings/Arrays, the last path segment becomes the prop name:
-	render({ placeholder }) {
-		return <input placeholder={placeholder} />
-	}
-}
+const Foo = () => <div/>;
 const WrappedFoo = withText('user.placeholer')(Foo);
 WrappedFoo.getWrappedComponent() === Foo; // true
 ```

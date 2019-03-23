@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, toChildArray } from 'preact';
 import translate from '../lib/translate';
 import { HighlightI18N } from './highlight-i18n';
 
@@ -41,7 +41,7 @@ import { HighlightI18N } from './highlight-i18n';
  */
 export function Text({ id, children, plural, fields }, { intl }) {
 
-	let fallback = children && children[0];
+	let fallback = toChildArray(children)[0];
 
 	let value = translate(
 		id,

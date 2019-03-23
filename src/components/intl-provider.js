@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import { h, Component, toChildArray  } from 'preact';
 import { assign, deepAssign } from '../lib/util';
 
 
@@ -53,6 +53,6 @@ export class IntlProvider extends Component {
 	}
 
 	render({ children }) {
-		return children && children[0] || null;
+		return toChildArray(children);
 	}
 }

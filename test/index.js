@@ -15,9 +15,9 @@ describe('intl', () => {
 	let scratch = document.createElement('div'),
 		root;
 	function rndr(jsx) {
-		root = render(<Empty />, scratch, root);
-		if (jsx) root = render(jsx, scratch, root);
-		return root;
+		root = render(<Empty />, scratch);
+		if (jsx) root = render(jsx, scratch);
+		root = scratch.lastChild;
 	}
 
 	it('should export things', () => {

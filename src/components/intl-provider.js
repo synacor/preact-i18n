@@ -1,4 +1,4 @@
-import { h, Component, toChildArray  } from 'preact';
+import { h, Component, toChildArray } from 'preact';
 import { assign, deepAssign } from '../lib/util';
 
 

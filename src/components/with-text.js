@@ -36,18 +36,25 @@ import { assign } from '../lib/util';
  *		}
  *	}
  *
- *	@example
- *	// Works with functional components, too:
+ *	@example <caption>Works with functional components, too</caption>
  *	const Foo = withText('user.placeholder')( props =>
  *		<input placeholder={props.placeholder} />
  *	)
+ *
+ * 	@example <caption>getWrappedComponent() returns wrapped child Component</caption>
+ *	const Foo = () => <div/>;
+ *	const WrappedFoo = withText('user.placeholer')(Foo);
+ *	WrappedFoo.getWrappedComponent() === Foo; // true
  */
 export function withText(mapping) {
 	return function withTextWrapper(Child) {
-		return function WithTextWrapper(props, context) {
+		function WithTextWrapper(props, context) {
 			let map = typeof mapping==='function' ? mapping(props, context) : mapping;
 			let translations = translateMapping(map, context.intl);
 			return h(Child, assign(assign({}, props), translations));
-		};
+		}
+
+		WithTextWrapper.getWrappedComponent = Child && Child.getWrappedComponent || (() => Child);
+		return WithTextWrapper;
 	};
 }

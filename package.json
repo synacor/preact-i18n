@@ -8,9 +8,9 @@
   "main": "dist/preact-i18n.js",
   "umd:main": "dist/preact-i18n.umd.js",
   "scripts": {
-    "test": "npm-run-all --silent -p lint build test:unit test:prod",
+    "test": "npm-run-all --silent -p lint build test:unit -s test:prod",
     "lint": "eslint src test",
-    "test:watch": "npm run test:unit -- -w",
+    "test:watch": "npm run test:unit -- --no-single-run",
     "test:unit": "karma start karma.conf.js --single-run",
     "test:prod": "cross-env TEST_PRODUCTION=true karma start karma.conf.js --single-run",
     "build": "npm-run-all --silent clean -p rollup:* -p minify:* -s docs size",
@@ -20,7 +20,7 @@
     "rollup:esm": "rollup -c rollup.config.js -m -f es --environment FORMAT:es -n $npm_package_amdName -i $npm_package_source -o $npm_package_module",
     "minify:cjs": "uglifyjs $npm_package_main -c -m toplevel -o $npm_package_main --source-map content=${npm_package_main}.map",
     "minify:umd": "uglifyjs $npm_package_umd_main -c -m -o $npm_package_umd_main --source-map content=${npm_package_umd_main}.map",
-    "docs": "mkdirp docs && documentation readme -q --section API src && documentation build src -f html -o ./docs",
+    "docs": "documentation readme -q --section API src",
     "size": "echo \"Gzipped Size: $(strip-json-comments --no-whitespace $npm_package_main | gzip-size --raw)\"",
     "prepublishOnly": "npm run build -s && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags"
   },

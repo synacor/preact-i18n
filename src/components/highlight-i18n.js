@@ -12,17 +12,21 @@ export function HighlightI18N({ value, id }, { intl }) {
 
 	if (intl && intl.mark) {
 		const dictionaryKey = `dictionary${intl && intl.scope ? `.${intl.scope}` : ''}.${id}`;
-		return h('mark', {
-			style: 'background: ' + (
-				value
-					? delve(intl, dictionaryKey)
-						? 'rgba(119,231,117,.5)'      // Green = this string is fully internationalized
-						: 'rgba(229,226,41,.5)'       // Yellow = this string does not have a value in the dictionary, but it has a fallback value
-					: 'rgba(228,147,51,.5)'         // Red = this string has no value and no fallback
-			),
-			title: id
-		}, value);
+		return (
+			<mark
+				style={{
+					background: value
+						? delve(intl, dictionaryKey)
+							? 'rgba(119,231,117,.5)'
+							: 'rgba(229,226,41,.5)'
+						: 'rgba(228,147,51,.5)'
+				}}
+				title={id}
+			>
+				{value}
+			</mark>
+		);
 	}
 
-	return 	value ;
+	return value;
 }

@@ -12,11 +12,11 @@ describe('intl', () => {
 
 	before( () => rndr() );
 
-	let scratch = document.createElement('div'),
-		root;
+	let root = document.createElement('div');
+
 	function rndr(jsx) {
-		root = render(<Empty />, scratch, root);
-		if (jsx) root = render(jsx, scratch, root);
+		render(<Empty />, root);
+		if (jsx) render(jsx, root);
 		return root;
 	}
 
@@ -150,9 +150,7 @@ describe('intl', () => {
 	describe('<Text>', () => {
 		it('should fall back if not wrapped in a Provider', () => {
 			rndr(
-				<div>
-					<Text>FOO</Text>
-				</div>
+				<Text>FOO</Text>
 			);
 
 			expect(root.innerHTML).to.equal('FOO');
@@ -160,13 +158,11 @@ describe('intl', () => {
 
 		it('should render text without scope', () => {
 			rndr(
-				<div>
-					<IntlProvider definition={{ foo: 'FOO!' }}>
-						<div>
-							<Text id="foo" />
-						</div>
-					</IntlProvider>
-				</div>
+				<IntlProvider definition={{ foo: 'FOO!' }}>
+					<div>
+						<Text id="foo" />
+					</div>
+				</IntlProvider>
 			);
 
 			expect(root.innerHTML).to.equal('<div>FOO!</div>');
@@ -175,13 +171,11 @@ describe('intl', () => {
 		it('should render text with scope', () => {
 
 			rndr(
-				<div>
-					<IntlProvider scope="foo" definition={{ foo: { bar: 'BAR!' } }}>
-						<div>
-							<Text id="bar" />
-						</div>
-					</IntlProvider>
-				</div>
+				<IntlProvider scope="foo" definition={{ foo: { bar: 'BAR!' } }}>
+					<div>
+						<Text id="bar" />
+					</div>
+				</IntlProvider>
 			);
 
 			expect(root.innerHTML, '').to.equal('<div>BAR!</div>');
@@ -190,13 +184,11 @@ describe('intl', () => {
 		it('should render html markup as string data, not markup', () => {
 
 			rndr(
-				<div>
-					<IntlProvider definition={{ foo: '<b>FOO</b>' }} >
-						<div>
-							<Text id="foo" />
-						</div>
-					</IntlProvider>
-				</div>
+				<IntlProvider definition={{ foo: '<b>FOO</b>' }} >
+					<div>
+						<Text id="foo" />
+					</div>
+				</IntlProvider>
 			);
 
 			expect(root.innerHTML, '').to.equal('<div>&lt;b&gt;FOO&lt;/b&gt;</div>');
@@ -205,13 +197,11 @@ describe('intl', () => {
 
 		it('should render default when requested id is not present', () => {
 			rndr(
-				<div>
-					<IntlProvider scope="foo" definition={{ foo: { bar: 'BAR!' } }}>
-						<div>
-							<Text id="asdf">DEFAULT</Text>
-						</div>
-					</IntlProvider>
-				</div>
+				<IntlProvider scope="foo" definition={{ foo: { bar: 'BAR!' } }}>
+					<div>
+						<Text id="asdf">DEFAULT</Text>
+					</div>
+				</IntlProvider>
 			);
 
 			expect(root.innerHTML, '').to.equal('<div>DEFAULT</div>');
@@ -224,7 +214,7 @@ describe('intl', () => {
 						<Text id="bar" />
 					</IntlProvider>
 				).to.eql(
-					<mark style="background: rgba(119,231,117,.5)" title="bar">BAR!</mark>
+					<mark style={{ background: 'rgba(119,231,117,.5)' }} title="bar">BAR!</mark>
 				);
 			});
 
@@ -234,7 +224,7 @@ describe('intl', () => {
 						<Text id="foo">Fooey</Text>
 					</IntlProvider>
 				).to.eql(
-					<mark style="background: rgba(229,226,41,.5)" title="foo">Fooey</mark>
+					<mark style={{ background: 'rgba(229,226,41,.5)' }} title="foo">Fooey</mark>
 				);
 			});
 
@@ -244,7 +234,7 @@ describe('intl', () => {
 						<Text id="foo" />
 					</IntlProvider>
 				).to.eql(
-					<mark style="background: rgba(228,147,51,.5)" title="foo" />
+					<mark style={{ background: 'rgba(228,147,51,.5)' }}  title="foo" />
 				);
 			});
 		});
@@ -254,9 +244,7 @@ describe('intl', () => {
 
 		it('should render nothing if no key or fallback is found', () => {
 			rndr(
-				<div>
-					<MarkupText />
-				</div>
+				<MarkupText />
 			);
 
 			expect(root.innerHTML).to.equal('');
@@ -265,9 +253,7 @@ describe('intl', () => {
 
 		it('should fall back if not wrapped in a Provider', () => {
 			rndr(
-				<div>
-					<MarkupText><b>FOO</b></MarkupText>
-				</div>
+				<MarkupText><b>FOO</b></MarkupText>
 			);
 
 			expect(root.innerHTML).to.equal('<span><b>FOO</b></span>');
@@ -275,9 +261,7 @@ describe('intl', () => {
 
 		it('should render multi-child fallback', () => {
 			rndr(
-				<div>
-					<MarkupText>This <b>is the fallback</b> with multiple children</MarkupText>
-				</div>
+				<MarkupText>This <b>is the fallback</b> with multiple children</MarkupText>
 			);
 
 			expect(root.innerHTML).to.equal('<span>This <b>is the fallback</b> with multiple children</span>');
@@ -285,28 +269,23 @@ describe('intl', () => {
 
 		it('should render text without scope', () => {
 			rndr(
-				<div>
-					<IntlProvider definition={{ foo: 'FOO!' }}>
-						<div>
-							<MarkupText id="foo" />
-						</div>
-					</IntlProvider>
-				</div>
+				<IntlProvider definition={{ foo: 'FOO!' }}>
+					<div>
+						<MarkupText id="foo" />
+					</div>
+				</IntlProvider>
 			);
 
 			expect(root.innerHTML).to.equal('<div><span>FOO!</span></div>');
 		});
 
 		it('should render text with scope', () => {
-
 			rndr(
-				<div>
-					<IntlProvider scope="foo" definition={{ foo: { bar: 'BAR!' } }}>
-						<div>
-							<MarkupText id="bar" />
-						</div>
-					</IntlProvider>
-				</div>
+				<IntlProvider scope="foo" definition={{ foo: { bar: 'BAR!' } }}>
+					<div>
+						<MarkupText id="bar" />
+					</div>
+				</IntlProvider>
 			);
 
 			expect(root.innerHTML, '').to.equal('<div><span>BAR!</span></div>');
@@ -315,28 +294,23 @@ describe('intl', () => {
 
 		it('should render default when requested id is not present', () => {
 			rndr(
-				<div>
-					<IntlProvider scope="foo" definition={{ foo: { bar: 'BAR!' } }}>
-						<div>
-							<MarkupText id="asdf"><b>DEFAULT</b></MarkupText>
-						</div>
-					</IntlProvider>
-				</div>
+				<IntlProvider scope="foo" definition={{ foo: { bar: 'BAR!' } }}>
+					<div>
+						<MarkupText id="asdf"><b>DEFAULT</b></MarkupText>
+					</div>
+				</IntlProvider>
 			);
 
 			expect(root.innerHTML, '').to.equal('<div><span><b>DEFAULT</b></span></div>');
 		});
 
 		it('should render html markup as markup', () => {
-
 			rndr(
-				<div>
-					<IntlProvider definition={{ foo: '<b>FOO</b>' }} >
-						<div>
-							<MarkupText id="foo" />
-						</div>
-					</IntlProvider>
-				</div>
+				<IntlProvider definition={{ foo: '<b>FOO</b>' }} >
+					<div>
+						<MarkupText id="foo" />
+					</div>
+				</IntlProvider>
 			);
 
 			expect(root.innerHTML, '').to.equal('<div><span><b>FOO</b></span></div>');
@@ -349,7 +323,7 @@ describe('intl', () => {
 						<MarkupText id="bar" />
 					</IntlProvider>
 				).to.eql(
-					<mark style="background: rgba(119,231,117,.5)" title="bar">
+					<mark style={{ background: 'rgba(119,231,117,.5)' }}  title="bar">
 						<span dangerouslySetInnerHTML={{ __html: '<b>BAR!</b>' }} />
 					</mark>);
 			});
@@ -360,7 +334,7 @@ describe('intl', () => {
 						<MarkupText id="foo"><b>Fooey</b></MarkupText>
 					</IntlProvider>
 				).to.eql(
-					<mark style="background: rgba(229,226,41,.5)" title="foo">
+					<mark style={{ background: 'rgba(229,226,41,.5)' }}  title="foo">
 						<span><b>Fooey</b></span>
 					</mark>
 				);
@@ -372,7 +346,7 @@ describe('intl', () => {
 						<MarkupText id="foo" />
 					</IntlProvider>
 				).to.eql(
-					<mark style="background: rgba(228,147,51,.5)" title="foo" />
+					<mark style={{ background: 'rgba(228,147,51,.5)' }}  title="foo" />
 				);
 			});
 		});
@@ -473,22 +447,20 @@ describe('intl', () => {
 		it('should translate any <Text> props on its child', () => {
 			rndr(
 				<IntlProvider definition={{ input: { pl: 'type a name' } }}>
-					<div>
-						<Localizer>
-							<input
-								placeholder={<Text id="input.pl" />}
-								title={<Text id="input.title">blah</Text>}
-								type="email"
-								minlength={0}
-								maxlength={1}
-								required
-							/>
-						</Localizer>
-					</div>
+					<Localizer>
+						<input
+							placeholder={<Text id="input.pl" />}
+							title={<Text id="input.title">blah</Text>}
+							type="email"
+							minlength={0}
+							maxlength={1}
+							required
+						/>
+					</Localizer>
 				</IntlProvider>
 			);
 
-			expect(root).to.have.property('innerHTML', `<input placeholder="type a name" title="blah" type="email" minlength="0" maxlength="1" required="">`);
+			expect(root).to.have.property('innerHTML', `<input maxlength="1" minlength="0" placeholder="type a name" required="" title="blah" type="email">`);
 		});
 
 	});

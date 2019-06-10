@@ -39,9 +39,7 @@ import { HighlightI18N } from './highlight-i18n';
  *	// ..produces the text:
  *	"Le Feux"
  */
-export function Text({ id, children, plural, fields }, { intl }) {
-
-	let fallback = children && children[0];
+export function Text({ id, children: fallback, plural, fields }, { intl }) {
 
 	let value = translate(
 		id,

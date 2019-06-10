@@ -25,13 +25,12 @@ export default function translateMapping(props, intl, onlyTextNodes) {
 			if (!onlyTextNodes && typeof def==='string') {
 				out[name] = translate(def, intl.scope, intl.dictionary);
 			}
-			else if (def.nodeName===Text) {
+			else if (def.type===Text) {
 				// it's a <Text />, just grab its props:
-				let c = def.children;
 				def = assign({
-					//no fallback if there are no children.  Return first child if there is only 1, or array of children if there are more than one
-					fallback: c.length && (c.length === 1 ? c[0] : c)
-				}, def.attributes);
+					// use children as fallback content
+					fallback: def.props.children
+				}, def.props);
 				out[name] = translate(def.id, intl.scope, intl.dictionary, def.fields, def.plural, def.fallback);
 			}
 		}

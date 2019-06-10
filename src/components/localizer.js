@@ -26,6 +26,7 @@ import translateMapping from '../lib/translate-mapping';
  *	<abbr title="Open Source Software">OSS</abbr>
  */
 export function Localizer({ children }, { intl }) {
-	let child = children && children[0];
-	return child && cloneElement(child, translateMapping(child.attributes, intl, true));
+	return children && children.length
+		? children.map((child) => cloneElement(child, translateMapping(child.props, intl, true)))
+		: children && cloneElement(children, translateMapping(children.props, intl, true));
 }

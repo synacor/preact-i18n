@@ -1,5 +1,4 @@
 import { h, render } from 'preact';
-import 'preact-jsx-chai';
 import wrap, { intl, IntlProvider, Text, MarkupText, Localizer, withText } from 'preact-i18n';
 /* eslint-disable react/no-danger */
 
@@ -27,24 +26,18 @@ describe('intl', () => {
 		expect(Text).to.be.a('function');
 	});
 
-	it('should work as a decorator @intl when given one argumnt', () => {
-		let TestClass = () => <div />;
+	it('should work as a decorator @intl when given one argument', () => {
+		let TestClass = sinon.spy();
 		let IntlTestClass = intl(options)(TestClass);
-		expect(<IntlTestClass />).to.equal(
-			<IntlProvider scope={scope} definition={dictionary}>
-				<TestClass />
-			</IntlProvider>
-		);
+		rndr(<IntlTestClass />);
+		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope } });
 	});
 
 	it('should work as a function when given two arguments', () => {
-		let TestClass = () => <div />;
+		let TestClass = sinon.spy();
 		let IntlTestClass = intl(TestClass, options);
-		expect(<IntlTestClass />).to.equal(
-			<IntlProvider scope={scope} definition={dictionary}>
-				<TestClass />
-			</IntlProvider>
-		);
+		rndr(<IntlTestClass />);
+		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope } });
 	});
 
 	describe('getWrappedComponent()', () => {
@@ -209,33 +202,32 @@ describe('intl', () => {
 
 		describe('mark', () => {
 			it('should render translations with a green wrapping <mark>', () => {
-				expect(
+				rndr(
 					<IntlProvider mark definition={{ bar: 'BAR!' }}>
 						<Text id="bar" />
 					</IntlProvider>
-				).to.eql(
-					<mark style={{ background: 'rgba(119,231,117,.5)' }} title="bar">BAR!</mark>
 				);
+
+				expect(root.innerHTML).to.equal('<mark title="bar" style="background: rgba(119, 231, 117, 0.5);">BAR!</mark>');
 			});
 
 			it('should render translations relying on a fallback with a yellow wrapping <mark>', () => {
-				expect(
+				rndr(
 					<IntlProvider mark definition={{ bar: 'BAR!' }}>
 						<Text id="foo">Fooey</Text>
 					</IntlProvider>
-				).to.eql(
-					<mark style={{ background: 'rgba(229,226,41,.5)' }} title="foo">Fooey</mark>
 				);
+				expect(root.innerHTML).to.equal('<mark title="foo" style="background: rgba(229, 226, 41, 0.5);">Fooey</mark>');
 			});
 
 			it('should render missing translations with an orange wrapping <mark>', () => {
-				expect(
+				rndr(
 					<IntlProvider mark definition={{ bar: 'BAR!' }}>
 						<Text id="foo" />
 					</IntlProvider>
-				).to.eql(
-					<mark style={{ background: 'rgba(228,147,51,.5)' }}  title="foo" />
 				);
+				expect(root.innerHTML).to.equal('<mark title="foo" style="background: rgba(228, 147, 51, 0.5);"></mark>');
+
 			});
 		});
 	});
@@ -318,36 +310,32 @@ describe('intl', () => {
 
 		describe('mark', () => {
 			it('should render translations with a green wrapping <mark>', () => {
-				expect(
+				rndr(
 					<IntlProvider mark definition={{ bar: '<b>BAR!</b>' }}>
 						<MarkupText id="bar" />
 					</IntlProvider>
-				).to.eql(
-					<mark style={{ background: 'rgba(119,231,117,.5)' }}  title="bar">
-						<span dangerouslySetInnerHTML={{ __html: '<b>BAR!</b>' }} />
-					</mark>);
+				);
+
+				expect(root.innerHTML).to.equal('<mark title="bar" style="background: rgba(119, 231, 117, 0.5);"><span><b>BAR!</b></span></mark>');
 			});
 
 			it('should render translations relying on a fallback with a yellow wrapping <mark>', () => {
-				expect(
-					<IntlProvider mark definition={{ bar: 'BAR!' }}>
+				rndr(
+					<IntlProvider mark definition={{ bar: '<b>BAR!</b>' }}>
 						<MarkupText id="foo"><b>Fooey</b></MarkupText>
 					</IntlProvider>
-				).to.eql(
-					<mark style={{ background: 'rgba(229,226,41,.5)' }}  title="foo">
-						<span><b>Fooey</b></span>
-					</mark>
 				);
+				expect(root.innerHTML).to.equal('<mark title="foo" style="background: rgba(229, 226, 41, 0.5);"><span><b>Fooey</b></span></mark>');
 			});
 
 			it('should render missing translations with an orange wrapping <mark>', () => {
-				expect(
-					<IntlProvider mark definition={{ bar: 'BAR!' }}>
+				rndr(
+					<IntlProvider mark definition={{ bar: '<b>BAR!</b>' }}>
 						<MarkupText id="foo" />
 					</IntlProvider>
-				).to.eql(
-					<mark style={{ background: 'rgba(228,147,51,.5)' }}  title="foo" />
 				);
+				expect(root.innerHTML).to.equal('<mark title="foo" style="background: rgba(228, 147, 51, 0.5);"></mark>');
+
 			});
 		});
 

@@ -9,7 +9,7 @@ import { HighlightI18N } from './highlight-i18n';
  *
  *	@param {Object} props				props
  *	@param {String} props.id			Key to look up in intl dictionary, within any parent scopes (`$scope1.$scope2.$id`)
- *	@param {Object} [props.fields={}]	Values to inject into template `{{fields}}`
+ *	@param {Object} [props.fields={}]	Values to inject into template `{{fields}}`.  Values in the `fields` object will be coerced to strings, with the exception of `<Text/>` nodes which will be resolved to their translated value
  *	@param {Number} [props.plural]		Integer "count", used to select plural forms
  *	@param {Object} context
  *	@param {Object} context.intl		[internal] dictionary and scope info

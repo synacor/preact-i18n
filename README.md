@@ -15,14 +15,18 @@
 
 * * *
 
--   [Installation](#installation)   
--   [Getting Started](#getting-started)   
-    -   [Fallback Text](#fallback-text)   
-    -   [Pluralization and Templating](#pluralization-and-templating)   
+-   [Installation](#installation)
+-   [Getting Started](#getting-started)
+    -   [Fallback Text](#fallback-text)
+    -   [Pluralization and Templating](#pluralization-and-templating)
 -   [ESLint Plugin](#eslint-plugin)
--   [API](#api)   
+-   [API](#api)
 
 <!-- /MDTOC -->
+
+## Preact Version Support
+
+By default, the `master` branch of this repo supports preact 9 and below, and is published in normal patch/minor/major releases to the `latest` tag in npm.  Support for preact X (versions 10+ of preact) is handled in the `preactX` branch and are always published to the `preactx` tag in npm.  When preact X obtains widespread adoption, the `master` branch of this project will support preact X and a new major version under `latest` tag will be published to in npm.
 
 ## Installation
 
@@ -159,7 +163,7 @@ making them available to descendant components.
 
 #### Parameters
 
--   `props`  
+-   `props`
     -   `props.scope` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** Nest `definition` under a root key, and set the active scope for the tree (essentially prefixing all `<Text />` keys).
     -   `props.mark` **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** If `true`, all `<Text>` elements will be shown with a red/green background indicating whether they have valid Intl keys. (optional, default `false`)
     -   `props.definition` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Merge the given definition into the current intl definition, giving the _current_ definition precedence (i.e., only adding keys, acting as defaults) (optional, default `{}`)
@@ -187,9 +191,9 @@ It "renders" out any `<Text />` values in its child's props.
 
 #### Parameters
 
--   `props` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `props` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `props.children` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Child components with props to localize.
--   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `context.intl` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** [internal] dictionary and scope info
 
 #### Examples
@@ -220,9 +224,9 @@ It "renders" out any `<Text />` values in its child's props.
 
 -   `props` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** props
     -   `props.id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Key to look up in intl dictionary, within any parent scopes (`$scope1.$scope2.$id`)
-    -   `props.fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Values to inject into template `{{fields}}`.  Values in the fields object will be interpreted as strings, except `<Text />` nodes which will be interpreted/translated (optional, default `{}`)
+    -   `props.fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Values to inject into template `{{fields}}`.  Values in the `fields` object will be coerced to strings, with the exception of `<Text/>` nodes which will be resolved to their translated value (optional, default `{}`)
     -   `props.plural` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Integer "count", used to select plural forms
--   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `context.intl` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** [internal] dictionary and scope info
 
 #### Examples
@@ -274,9 +278,9 @@ When string lookup fails, renders its children as fallback text.
 -   `props` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** props
     -   `props.id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Key to look up in intl dictionary, within any parent scopes (`$scope1.$scope2.$id`)
     -   `props.plural` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Integer "count", used to select plural forms
-    -   `props.fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Values to inject into template `{{fields}}`.  Values in the fields object will be interpreted as strings, except `<Text />` nodes which will be interpreted/translated (optional, default `{}`)
-    -   `props.children`  
--   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+    -   `props.fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Values to inject into template `{{fields}}`.  Values in the `fields` object will be coerced to strings, with the exception of `<Text/>` nodes which will be resolved to their translated value (optional, default `{}`)
+    -   `props.children`
+-   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `context.intl` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** [internal] dictionary and scope info
 
 #### Examples
@@ -381,7 +385,7 @@ or it can take an annotation form like:
 
 #### Parameters
 
--   `Child`  
+-   `Child`
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** If there are two arguments, the second argument is Passed as `props` to `<IntlProvider />`
     -   `options.scope`  Nest `definition` under a root key, and set the active scope for the tree (essentially prefixing all `<Text />` keys).
     -   `options.definition`  Merge the given definition into the current intl definition, giving the _current_ definition precedence (i.e., only adding keys, acting as defaults) (optional, default `{}`)

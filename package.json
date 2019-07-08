@@ -91,6 +91,6 @@
     "dlv": "^1.1.2"
   },
   "peerDependencies": {
-    "preact": "*"
+    "preact": "<10"
   }
 }

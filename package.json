@@ -18,8 +18,8 @@
     "rollup:cjs": "cross-var rollup -c rollup.config.js -m -f cjs -n $npm_package_amdName -i $npm_package_source -o $npm_package_main",
     "rollup:umd": "cross-var rollup -c rollup.config.js -m -f umd -n $npm_package_amdName -i $npm_package_source -o $npm_package_umd_main",
     "rollup:esm": "cross-var rollup -c rollup.config.js -m -f es --environment FORMAT:es -n $npm_package_amdName -i $npm_package_source -o $npm_package_module",
-    "minify:cjs": "cross-var uglifyjs $npm_package_main -c -m toplevel -o $npm_package_main --source-map content=${npm_package_main}.map",
-    "minify:umd": "cross-var uglifyjs $npm_package_umd_main -c -m -o $npm_package_umd_main --source-map content=${npm_package_umd_main}.map",
+    "minify:cjs": "cross-var uglifyjs $npm_package_main -c -m toplevel -o $npm_package_main --source-map content=$npm_package_main.map",
+    "minify:umd": "cross-var uglifyjs $npm_package_umd_main -c -m -o $npm_package_umd_main --source-map content=$npm_package_umd_main.map",
     "docs": "documentation readme -q --section API src",
     "size": "cross-var echo \"Gzipped Size: $(strip-json-comments --no-whitespace $npm_package_main | gzip-size --raw)\"",
     "prepublishOnly": "cross-var npm run build -s && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags"

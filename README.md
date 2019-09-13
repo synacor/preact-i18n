@@ -32,6 +32,9 @@ By default, the `master` branch of this repo supports preact 9 and below, and is
 
 ```sh
 npm install --save preact-i18n
+
+# For TypeScript Definitions
+npm install --save-dev @types/preact-i18n
 ```
 
 ## Getting Started

@@ -30,14 +30,14 @@ describe('intl', () => {
 		let TestClass = sinon.spy();
 		let IntlTestClass = intl(options)(TestClass);
 		rndr(<IntlTestClass />);
-		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope } });
+		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope, provider: undefined } });
 	});
 
 	it('should work as a function when given two arguments', () => {
 		let TestClass = sinon.spy();
 		let IntlTestClass = intl(TestClass, options);
 		rndr(<IntlTestClass />);
-		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope } });
+		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope, provider: undefined } });
 	});
 
 	describe('getWrappedComponent()', () => {
@@ -448,7 +448,7 @@ describe('intl', () => {
 				</IntlProvider>
 			);
 
-			expect(root).to.have.property('innerHTML', `<input maxlength="1" minlength="0" placeholder="type a name" required="" title="blah" type="email">`);
+			expect(root).to.have.property('innerHTML', `<input placeholder="type a name" title="blah" type="email" minlength="0" maxlength="1" required="">`);
 		});
 
 	});

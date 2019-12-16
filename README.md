@@ -150,6 +150,8 @@ A companion ESLint plugin exists, [eslint-plugin-preact-i18n](https://www.npmjs.
     -   [Examples](#examples-4)
 -   [intl](#intl)
     -   [Parameters](#parameters-5)
+-   [defaultProvider](#defaultprovider)
+    -   [Parameters](#parameters-6)
 
 ### IntlProvider
 
@@ -389,6 +391,18 @@ or it can take an annotation form like:
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** If there are two arguments, the second argument is Passed as `props` to `<IntlProvider />`
     -   `options.scope`  Nest `definition` under a root key, and set the active scope for the tree (essentially prefixing all `<Text />` keys).
     -   `options.definition`  Merge the given definition into the current intl definition, giving the _current_ definition precedence (i.e., only adding keys, acting as defaults) (optional, default `{}`)
+    -   `options.provider`  Provider function to use to get the plural form to use from the dictionary (optional, default `defaultProvider`)
+
+### defaultProvider
+
+Default function to determine what plural form to use from the provided dictionary
+
+#### Parameters
+
+-   `dict`  the dictorary with possible plural forms
+-   `plural`  the plural count
+
+Returns **([String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| `false`)** 
 
 ## License
 

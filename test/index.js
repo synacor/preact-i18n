@@ -30,14 +30,14 @@ describe('intl', () => {
 		let TestClass = sinon.spy();
 		let IntlTestClass = intl(options)(TestClass);
 		rndr(<IntlTestClass />);
-		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope } });
+		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope, provider: undefined } });
 	});
 
 	it('should work as a function when given two arguments', () => {
 		let TestClass = sinon.spy();
 		let IntlTestClass = intl(TestClass, options);
 		rndr(<IntlTestClass />);
-		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope } });
+		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope, provider: undefined } });
 	});
 
 	describe('getWrappedComponent()', () => {

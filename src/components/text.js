@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import translate from '../lib/translate';
+import translate, { defaultProvider } from '../lib/translate';
 import { HighlightI18N } from './highlight-i18n';
 
 /** `<Text>` renders internationalized text.
@@ -47,7 +47,8 @@ export function Text({ id, children: fallback, plural, fields }, { intl }) {
 		intl && intl.dictionary,
 		fields,
 		plural,
-		fallback
+		fallback,
+		intl && intl.provider || defaultProvider
 	);
 
 	return <HighlightI18N id={id} value={value} />;

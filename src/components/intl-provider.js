@@ -34,7 +34,7 @@ const URL_FLAG = /[?&#]intl=show/;
  */
 export class IntlProvider extends Component {
 	getChildContext() {
-		let { scope, definition, mark } = this.props,
+		let { scope, definition, mark, provider } = this.props,
 			intl = assign({}, this.context.intl || {});
 
 		// set active scope for the tree if given
@@ -48,6 +48,8 @@ export class IntlProvider extends Component {
 		if (mark || (typeof location!=='undefined' && String(location).match(URL_FLAG))) {
 			intl.mark = true;
 		}
+
+		intl.provider = provider;
 
 		return { intl };
 	}

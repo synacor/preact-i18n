@@ -1,4 +1,6 @@
 import { h } from 'preact';
+import { useContext } from 'preact/hooks';
+import { IntlContext } from '../contexts/intl-context';
 import delve from 'dlv';
 
 
@@ -8,7 +10,8 @@ import delve from 'dlv';
  *	@param {String|VNode} value	The l10n'd text/vnode to highlight or pass through
  *	@param {string} id	The key used to lookup the value in the intl dictionary
  */
-export function HighlightI18N({ value, id }, { intl }) {
+export function HighlightI18N({ value, id }) {
+	const { intl } = useContext(IntlContext);
 
 	if (intl && intl.mark) {
 		const dictionaryKey = `dictionary${intl && intl.scope ? `.${intl.scope}` : ''}.${id}`;

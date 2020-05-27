@@ -277,11 +277,9 @@ When string lookup fails, renders its children as fallback text.
 
 -   `props` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** props
     -   `props.id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Key to look up in intl dictionary, within any parent scopes (`$scope1.$scope2.$id`)
+    -   `props.children` **ReactElement?** Fallback text if no definition is found
     -   `props.plural` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Integer "count", used to select plural forms
     -   `props.fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Values to inject into template `{{fields}}` (optional, default `{}`)
-    -   `props.children`  
--   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `context.intl` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** [internal] dictionary and scope info
 
 #### Examples
 

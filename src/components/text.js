@@ -12,12 +12,11 @@ import { HighlightI18N } from './highlight-i18n';
  *
  *	When string lookup fails, renders its children as fallback text.
  *
- *	@param {Object} props				props
- *	@param {String} props.id			Key to look up in intl dictionary, within any parent scopes (`$scope1.$scope2.$id`)
- *	@param {Object} [props.fields={}]	Values to inject into template `{{fields}}`
- *	@param {Number} [props.plural]		Integer "count", used to select plural forms
- *	@param {Object} context
- *	@param {Object} context.intl		[internal] dictionary and scope info
+ *	@param {Object}       props               props
+ *	@param {String}       props.id            Key to look up in intl dictionary, within any parent scopes (`$scope1.$scope2.$id`)
+ *	@param {ReactElement} [props.children]    Fallback text if no definition is found
+ *	@param {Object}       [props.fields={}]   Values to inject into template `{{fields}}`
+ *	@param {Number}       [props.plural]      Integer "count", used to select plural forms
  *
  *	@example
  *	// If there is no dictionary in context..

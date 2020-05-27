@@ -1,5 +1,5 @@
 import { h, render } from 'preact';
-import wrap, { intl, IntlProvider, Text, MarkupText, Localizer, withText } from 'preact-i18n';
+import wrap, { intl, IntlContext, IntlProvider, Text, MarkupText, Localizer, withText } from 'preact-i18n';
 /* eslint-disable react/no-danger */
 
 function Empty() {}
@@ -28,6 +28,8 @@ describe('intl', () => {
 
 	it('should work as a decorator @intl when given one argument', () => {
 		let TestClass = sinon.spy();
+		TestClass.contextType = IntlContext;
+
 		let IntlTestClass = intl(options)(TestClass);
 		rndr(<IntlTestClass />);
 		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope } });
@@ -35,6 +37,8 @@ describe('intl', () => {
 
 	it('should work as a function when given two arguments', () => {
 		let TestClass = sinon.spy();
+		TestClass.contextType = IntlContext;
+
 		let IntlTestClass = intl(TestClass, options);
 		rndr(<IntlTestClass />);
 		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope } });
@@ -66,6 +70,7 @@ describe('intl', () => {
 	describe('<IntlProvider>', () => {
 		it('should provide context', () => {
 			let Spy = sinon.stub().returns(null);
+			Spy.contextType = IntlContext;
 
 			rndr(
 				<IntlProvider definition={dictionary}>
@@ -94,6 +99,7 @@ describe('intl', () => {
 		describe('mark', () => {
 			it('should be off by default', () => {
 				const Child = sinon.spy( () => <div /> );
+				Child.contextType = IntlContext;
 
 				rndr(
 					<IntlProvider>
@@ -106,6 +112,7 @@ describe('intl', () => {
 
 			it('should be triggered by <IntlProvider mark>', () => {
 				const Child = sinon.spy( () => <div /> );
+				Child.contextType = IntlContext;
 
 				rndr(
 					<IntlProvider mark>
@@ -122,6 +129,8 @@ describe('intl', () => {
 				function test(urlSuffix) {
 					history.replaceState(null, null, url+urlSuffix);
 					const Child = sinon.spy( () => <div /> );
+					Child.contextType = IntlContext;
+
 					rndr(
 						<IntlProvider>
 							<Child />
@@ -448,7 +457,7 @@ describe('intl', () => {
 				</IntlProvider>
 			);
 
-			expect(root).to.have.property('innerHTML', `<input maxlength="1" minlength="0" placeholder="type a name" required="" title="blah" type="email">`);
+			expect(root).to.have.property('innerHTML', `<input placeholder="type a name" title="blah" type="email" minlength="0" maxlength="1" required="">`);
 		});
 
 	});

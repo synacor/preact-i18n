@@ -36,8 +36,6 @@ const URL_FLAG = /[?&#]intl=show/;
  */
 
 export function IntlProvider({ scope, mark, definition, ...props }) {
-
-	// TODO: Test nesting
 	const { intl: parentIntl } = useContext(IntlContext);
 	let intl = assign({}, parentIntl || {});
 

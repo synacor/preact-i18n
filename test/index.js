@@ -96,6 +96,23 @@ describe('intl', () => {
 			});
 		});
 
+		it('should merge nested definitions', () => {
+			const nestedDictionary = { nested: 'nested' };
+
+			let Spy = sinon.stub().returns(null);
+			Spy.contextType = IntlContext;
+
+			rndr(
+				<IntlProvider definition={dictionary}>
+					<IntlProvider definition={nestedDictionary}>
+						<Spy />
+					</IntlProvider>
+				</IntlProvider>
+			);
+
+			expect(Spy).to.have.been.calledOnce.and.calledWithMatch({}, { intl: { dictionary: { ...dictionary, ...nestedDictionary } } });
+		});
+
 		describe('mark', () => {
 			it('should be off by default', () => {
 				const Child = sinon.spy( () => <div /> );

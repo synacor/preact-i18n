@@ -148,8 +148,11 @@ A companion ESLint plugin exists, [eslint-plugin-preact-i18n](https://www.npmjs.
 -   [withText](#withtext)
     -   [Parameters](#parameters-4)
     -   [Examples](#examples-4)
--   [intl](#intl)
+-   [useText](#usetext)
     -   [Parameters](#parameters-5)
+    -   [Examples](#examples-5)
+-   [intl](#intl)
+    -   [Parameters](#parameters-6)
 
 ### IntlProvider
 
@@ -370,6 +373,43 @@ getWrappedComponent() returns wrapped child Component
 const Foo = () => <div/>;
 const WrappedFoo = withText('user.placeholer')(Foo);
 WrappedFoo.getWrappedComponent() === Foo; // true
+```
+
+### useText
+
+`useText` is the hook version of [withText](#withtext)
+
+#### Parameters
+
+-   `mapping` **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function) \| [String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))** Maps prop names to intl keys (or `<Text>` nodes).
+
+#### Examples
+
+```javascript
+function MyComponent() {
+	const { placeholder } = useText({
+		placeholder: 'user.placeholder'
+	});
+	return <input placeholder={placeholder} />
+}
+```
+
+```javascript
+function MyComponent() {
+	const { placeholder } = withText({
+		placeholder: <Text id="user.placeholder">fallback text</Text>
+	});
+	return <input placeholder={placeholder} />
+}
+```
+
+```javascript
+function MyComponent() {
+	// for Strings/Arrays, the last path segment becomes the prop name:
+	const { placeholder } = useText('user.placeholder');
+
+	return <input placeholder={placeholder} />
+}
 ```
 
 ### intl

@@ -1,4 +1,6 @@
 import { h } from 'preact';
+import { useContext } from 'preact/hooks';
+import { IntlContext } from '../contexts/intl-context';
 import translate from '../lib/translate';
 import { HighlightI18N } from './highlight-i18n';
 
@@ -39,7 +41,8 @@ import { HighlightI18N } from './highlight-i18n';
  *	// ..produces the text:
  *	"Le Feux"
  */
-export function Text({ id, children: fallback, plural, fields }, { intl }) {
+export function Text({ id, children: fallback, plural, fields }) {
+	const { intl } = useContext(IntlContext);
 
 	let value = translate(
 		id,

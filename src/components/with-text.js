@@ -1,4 +1,6 @@
 import { h } from 'preact';
+import { useContext } from 'preact/hooks';
+import { IntlContext } from '../contexts/intl-context';
 import translateMapping from '../lib/translate-mapping';
 import { assign } from '../lib/util';
 
@@ -49,8 +51,10 @@ import { assign } from '../lib/util';
 export function withText(mapping) {
 	return function withTextWrapper(Child) {
 		function WithTextWrapper(props, context) {
-			let map = typeof mapping==='function' ? mapping(props, context) : mapping;
-			let translations = translateMapping(map, context.intl);
+			const { intl } = useContext(IntlContext);
+
+			let map = typeof mapping==='function' ? mapping(props, { intl }) : mapping;
+			let translations = translateMapping(map, intl);
 			return h(Child, assign(assign({}, props), translations));
 		}
 

@@ -14,7 +14,7 @@ import translateMapping from '../lib/translate-mapping';
  *	}
  *
  *	@example function MyComponent() {
- *		const { placeholder } = withText({
+ *		const { placeholder } = useText({
  *			placeholder: <Text id="user.placeholder">fallback text</Text>
  *		});
  *		return <input placeholder={placeholder} />

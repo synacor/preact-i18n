@@ -396,7 +396,7 @@ function MyComponent() {
 
 ```javascript
 function MyComponent() {
-	const { placeholder } = withText({
+	const { placeholder } = useText({
 		placeholder: <Text id="user.placeholder">fallback text</Text>
 	});
 	return <input placeholder={placeholder} />

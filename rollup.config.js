@@ -7,6 +7,7 @@ export default function(config) {
 	return {
 		external: [
 			'preact',
+			'preact/hooks',
 			'dlv'
 		],
 		output: {
@@ -14,6 +15,7 @@ export default function(config) {
 			exports: format==='es' ? null : 'named',
 			globals: {
 				preact: 'preact',
+				'preact/hooks': 'preactHooks',
 				dlv: 'dlv'
 			}
 		},

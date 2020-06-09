@@ -1,4 +1,6 @@
-import { h, Component } from 'preact';
+import { h } from 'preact';
+import { useContext } from 'preact/hooks';
+import { IntlContext } from '../contexts/intl-context';
 import { assign, deepAssign } from '../lib/util';
 
 
@@ -32,27 +34,26 @@ const URL_FLAG = /[?&#]intl=show/;
  *	// This will render the text:
  *	"Le Feux"
  */
-export class IntlProvider extends Component {
-	getChildContext() {
-		let { scope, definition, mark } = this.props,
-			intl = assign({}, this.context.intl || {});
 
-		// set active scope for the tree if given
-		if (scope) intl.scope = scope;
+export function IntlProvider({ scope, mark, definition, ...props }) {
+	const { intl: parentIntl } = useContext(IntlContext);
+	let intl = assign({}, parentIntl || {});
 
-		// merge definition into current with lower precedence
-		if (definition) {
-			intl.dictionary = deepAssign(intl.dictionary || {}, definition);
-		}
+	// set active scope for the tree if given
+	if (scope) intl.scope = scope;
 
-		if (mark || (typeof location!=='undefined' && String(location).match(URL_FLAG))) {
-			intl.mark = true;
-		}
-
-		return { intl };
+	// merge definition into current with lower precedence
+	if (definition) {
+		intl.dictionary = deepAssign(intl.dictionary || {}, definition);
 	}
 
-	render({ children }) {
-		return children;
+	if (mark || (typeof location!=='undefined' && String(location).match(URL_FLAG))) {
+		intl.mark = true;
 	}
+
+	return (
+		<IntlContext.Provider value={{ intl }}>
+			{props.children}
+		</IntlContext.Provider>
+	);
 }

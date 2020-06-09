@@ -1,4 +1,6 @@
 import { h } from 'preact';
+import { useContext } from 'preact/hooks';
+import { IntlContext } from '../contexts/intl-context';
 import translate from '../lib/translate';
 import { HighlightI18N } from './highlight-i18n';
 
@@ -10,12 +12,11 @@ import { HighlightI18N } from './highlight-i18n';
  *
  *	When string lookup fails, renders its children as fallback text.
  *
- *	@param {Object} props				props
- *	@param {String} props.id			Key to look up in intl dictionary, within any parent scopes (`$scope1.$scope2.$id`)
- *	@param {Object} [props.fields={}]	Values to inject into template `{{fields}}`
- *	@param {Number} [props.plural]		Integer "count", used to select plural forms
- *	@param {Object} context
- *	@param {Object} context.intl		[internal] dictionary and scope info
+ *	@param {Object}       props               props
+ *	@param {String}       props.id            Key to look up in intl dictionary, within any parent scopes (`$scope1.$scope2.$id`)
+ *	@param {ReactElement} [props.children]    Fallback text if no definition is found
+ *	@param {Object}       [props.fields={}]   Values to inject into template `{{fields}}`
+ *	@param {Number}       [props.plural]      Integer "count", used to select plural forms
  *
  *	@example
  *	// If there is no dictionary in context..
@@ -39,7 +40,8 @@ import { HighlightI18N } from './highlight-i18n';
  *	// ..produces the text:
  *	"Le Feux"
  */
-export function Text({ id, children: fallback, plural, fields }, { intl }) {
+export function Text({ id, children: fallback, plural, fields }) {
+	const { intl } = useContext(IntlContext);
 
 	let value = translate(
 		id,

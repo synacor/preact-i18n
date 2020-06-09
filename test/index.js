@@ -1,5 +1,5 @@
 import { h, render } from 'preact';
-import wrap, { intl, IntlProvider, Text, MarkupText, Localizer, withText } from 'preact-i18n';
+import wrap, { intl, IntlContext, IntlProvider, Text, MarkupText, Localizer, withText, useText } from 'preact-i18n';
 /* eslint-disable react/no-danger */
 
 function Empty() {}
@@ -28,6 +28,8 @@ describe('intl', () => {
 
 	it('should work as a decorator @intl when given one argument', () => {
 		let TestClass = sinon.spy();
+		TestClass.contextType = IntlContext;
+
 		let IntlTestClass = intl(options)(TestClass);
 		rndr(<IntlTestClass />);
 		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope } });
@@ -35,6 +37,8 @@ describe('intl', () => {
 
 	it('should work as a function when given two arguments', () => {
 		let TestClass = sinon.spy();
+		TestClass.contextType = IntlContext;
+
 		let IntlTestClass = intl(TestClass, options);
 		rndr(<IntlTestClass />);
 		expect(TestClass).to.have.been.calledWith({}, { intl: { dictionary, scope } });
@@ -66,6 +70,7 @@ describe('intl', () => {
 	describe('<IntlProvider>', () => {
 		it('should provide context', () => {
 			let Spy = sinon.stub().returns(null);
+			Spy.contextType = IntlContext;
 
 			rndr(
 				<IntlProvider definition={dictionary}>
@@ -91,9 +96,27 @@ describe('intl', () => {
 			});
 		});
 
+		it('should merge nested definitions', () => {
+			const nestedDictionary = { nested: 'nested' };
+
+			let Spy = sinon.stub().returns(null);
+			Spy.contextType = IntlContext;
+
+			rndr(
+				<IntlProvider definition={dictionary}>
+					<IntlProvider definition={nestedDictionary}>
+						<Spy />
+					</IntlProvider>
+				</IntlProvider>
+			);
+
+			expect(Spy).to.have.been.calledOnce.and.calledWithMatch({}, { intl: { dictionary: { ...dictionary, ...nestedDictionary } } });
+		});
+
 		describe('mark', () => {
 			it('should be off by default', () => {
 				const Child = sinon.spy( () => <div /> );
+				Child.contextType = IntlContext;
 
 				rndr(
 					<IntlProvider>
@@ -106,6 +129,7 @@ describe('intl', () => {
 
 			it('should be triggered by <IntlProvider mark>', () => {
 				const Child = sinon.spy( () => <div /> );
+				Child.contextType = IntlContext;
 
 				rndr(
 					<IntlProvider mark>
@@ -122,6 +146,8 @@ describe('intl', () => {
 				function test(urlSuffix) {
 					history.replaceState(null, null, url+urlSuffix);
 					const Child = sinon.spy( () => <div /> );
+					Child.contextType = IntlContext;
+
 					rndr(
 						<IntlProvider>
 							<Child />
@@ -448,7 +474,53 @@ describe('intl', () => {
 				</IntlProvider>
 			);
 
-			expect(root).to.have.property('innerHTML', `<input maxlength="1" minlength="0" placeholder="type a name" required="" title="blah" type="email">`);
+			expect(root).to.have.property('innerHTML', `<input placeholder="type a name" title="blah" type="email" minlength="0" maxlength="1" required="">`);
+		});
+
+	});
+
+	describe('useText', () => {
+		it('should translate given keys', () => {
+			const Child = sinon.spy(() => useText('foo,baz'));
+
+			rndr(
+				<IntlProvider definition={dictionary}>
+					<Child />
+				</IntlProvider>
+			);
+
+			expect(Child.returnValues[0]).to.include({ foo: dictionary.foo, baz: dictionary.baz });
+		});
+
+		it('should accept a function', () => {
+			const mapping = sinon.spy();
+			const Child = sinon.spy(() => {
+				useText(mapping);
+			});
+
+			rndr(
+				<IntlProvider definition={dictionary}>
+					<Child />
+				</IntlProvider>
+			);
+
+			expect(mapping).to.have.been.calledOnce.and.calledWithMatch({ intl: { dictionary } });
+		});
+
+		it('should support translation of <Text> components', () => {
+			const Child = sinon.spy(
+				() => useText({
+					foo: <Text id="foo" fields={{ arg: 'bar' }} />
+				}).foo
+			);
+
+			rndr(
+				<IntlProvider definition={{ foo: 'foo {{arg}}' }}>
+					<Child />
+				</IntlProvider>
+			);
+
+			expect(Child.returnValues[0]).to.eql('foo bar');
 		});
 
 	});

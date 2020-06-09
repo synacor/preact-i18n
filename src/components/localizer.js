@@ -1,4 +1,6 @@
 import { cloneElement } from 'preact';
+import { useContext } from 'preact/hooks';
+import { IntlContext } from '../contexts/intl-context';
 import translateMapping from '../lib/translate-mapping';
 
 /** `<Localizer />` is a Compositional Component.
@@ -25,7 +27,9 @@ import translateMapping from '../lib/translate-mapping';
  *	// produces:
  *	<abbr title="Open Source Software">OSS</abbr>
  */
-export function Localizer({ children }, { intl }) {
+export function Localizer({ children }) {
+	const { intl } = useContext(IntlContext);
+
 	return children && children.length
 		? children.map((child) => cloneElement(child, translateMapping(child.props, intl, true)))
 		: children && cloneElement(children, translateMapping(children.props, intl, true));

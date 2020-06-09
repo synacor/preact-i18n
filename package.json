@@ -76,7 +76,6 @@
     "mocha": "^6.0.2",
     "npm-run-all": "^4.1.5",
     "preact": "^10.4.1",
-    "preact-jsx-chai": "^3.0.0",
     "rimraf": "^2.6.3",
     "rollup": "^1.7.0",
     "rollup-plugin-buble": "^0.19.6",

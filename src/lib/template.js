@@ -26,8 +26,8 @@ function replacer(currentFields, scope, dictionary, s, field) {
 		if (v == null) return ''; // eslint-disable-line eqeqeq
 
 		//allow field values to be <Text /> nodes
-		if (v && v.nodeName === Text) {
-			return translate(v.attributes.id, scope, dictionary, v.attributes.fields, v.attributes.plural, v.attributes.fallback);
+		if (v && v.type === Text) {
+			return translate(v.props.id, scope, dictionary, v.props.fields, v.props.plural, v.props.fallback);
 		}
 	}
 	// allow for recursive {{config.xx}} references:

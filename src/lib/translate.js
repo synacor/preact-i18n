@@ -39,5 +39,5 @@ export default function translate(id, scope, dictionary, fields, plural, fallbac
 		}
 	}
 
-	return value && template(value, fields) || fallback || null;
+	return value && template(value, fields, scope, dictionary) || fallback || null;
 }

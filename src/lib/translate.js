@@ -4,16 +4,15 @@ import template from './template';
 
 /** Attempts to look up a translated value from a given dictionary.
  *  Also supports json templating using the format: {{variable}}
- *	Falls back to default text.
+ *  Falls back to default text.
  *
- *	@private
- *	@param {String} id				Intl field name/id (subject to scope)
- *	@param {String} [scope='']		Scope, which prefixes `id` with `${scope}.`
- *	@param {Object} dictionary		A nested object containing translations
- *	@param {Object} [fields={}]		Template fields for use by translated strings
- *	@param {Number} [plural]		Indicates a quantity, used to trigger pluralization
- *	@param {String|Array} [fallback]	Text to return if no translation is found
- *	@returns {String} translated
+ *  @param {String} id  			Intl field name/id (subject to scope)
+ *  @param {String} [scope='']		Scope, which prefixes `id` with `${scope}.`
+ *  @param {Object} dictionary		A nested object containing translations
+ *  @param {Object} [fields={}]		Template fields for use by translated strings
+ *  @param {Number} [plural]		Indicates a quantity, used to trigger pluralization
+ *  @param {String|Array} [fallback]	Text to return if no translation is found
+ *  @returns {String} translated
  */
 export default function translate(id, scope, dictionary, fields, plural, fallback) {
 	if (scope) id = scope + '.' + id;

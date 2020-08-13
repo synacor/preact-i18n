@@ -156,6 +156,8 @@ A companion ESLint plugin exists, [eslint-plugin-preact-i18n](https://www.npmjs.
     -   [Examples](#examples-5)
 -   [intl](#intl)
     -   [Parameters](#parameters-6)
+-   [translate](#translate)
+    -   [Parameters](#parameters-7)
 
 ### IntlProvider
 
@@ -430,6 +432,23 @@ or it can take an annotation form like:
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** If there are two arguments, the second argument is Passed as `props` to `<IntlProvider />`
     -   `options.scope`  Nest `definition` under a root key, and set the active scope for the tree (essentially prefixing all `<Text />` keys).
     -   `options.definition`  Merge the given definition into the current intl definition, giving the _current_ definition precedence (i.e., only adding keys, acting as defaults) (optional, default `{}`)
+
+### translate
+
+Attempts to look up a translated value from a given dictionary.
+ Also supports json templating using the format: {{variable}}
+ Falls back to default text.
+
+#### Parameters
+
+-   `id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Intl field name/id (subject to scope)
+-   `scope` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Scope, which prefixes `id` with `${scope}.` (optional, default `''`)
+-   `dictionary` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** A nested object containing translations
+-   `fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Template fields for use by translated strings (optional, default `{}`)
+-   `plural` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Indicates a quantity, used to trigger pluralization
+-   `fallback` **([String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array))?** Text to return if no translation is found
+
+Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** translated
 
 ## License
 

@@ -1,7 +1,7 @@
 {
   "name": "preact-i18n",
   "amdName": "preactLocalize",
-  "version": "2.2.0-preactx",
+  "version": "2.3.0-preactx",
   "description": "Preact internationalization, done simply.",
   "source": "src/index.js",
   "module": "dist/preact-i18n.esm.js",

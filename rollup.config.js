@@ -8,6 +8,7 @@ export default function(config) {
 		external: [
 			'preact',
 			'preact/hooks',
+			'preact-markup',
 			'dlv'
 		],
 		output: {
@@ -16,6 +17,7 @@ export default function(config) {
 			globals: {
 				preact: 'preact',
 				'preact/hooks': 'preactHooks',
+				'preact-markup': 'preactMarkup',
 				dlv: 'dlv'
 			}
 		},
@@ -25,7 +27,8 @@ export default function(config) {
 				contents: "export { default } from './index';"
 			}),
 			buble({
-				jsx: 'h'
+				jsx: 'h',
+				objectAssign: 'Object.assign'
 			})
 		].filter(Boolean)
 	};

@@ -234,8 +234,8 @@ It "renders" out any `<Text />` values in its child's props.
     -   `props.id` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Key to look up in intl dictionary, within any parent scopes (`$scope1.$scope2.$id`)
     -   `props.fields` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Values to inject into template `{{fields}}`.  Values in the `fields` object will be coerced to strings, with the exception of `<Text/>` nodes which will be resolved to their translated value (optional, default `{}`)
     -   `props.plural` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)?** Integer "count", used to select plural forms
--   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `context.intl` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** [internal] dictionary and scope info
+    -   `props.children`  
+    -   `props.props` **...any** 
 
 #### Examples
 

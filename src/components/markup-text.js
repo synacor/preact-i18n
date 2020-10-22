@@ -50,12 +50,10 @@ export function MarkupText({ id, fields, plural, children, ...props }) {
 }
 
 function Html({ html, id, ...props }) {
-	let value;
-	try {
-		value = !html ? html : typeof html === 'string' ? <Markup type="html" trim={false} {...props} markup={html} /> : <span>{html}</span> ;
-	}
-	catch (e) {
-		value = 'HTML Injection detected.';
-	}
-	return <HighlightI18N id={id} value={value} />;
+	return (
+		<HighlightI18N
+			id={id}
+			value={!html ? html : typeof html === 'string' ? <Markup type="html" trim={false} {...props} markup={html} /> : <span>{html}</span>}
+		/>
+	);
 }

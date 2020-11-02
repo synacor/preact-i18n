@@ -297,6 +297,18 @@ describe('intl', () => {
 			expect(root.innerHTML).to.equal('<div><div class="markup">FOO!</div></div>');
 		});
 
+		it('should render with a given className', () => {
+			rndr(
+				<IntlProvider definition={{ foo: 'FOO!' }}>
+					<div>
+						<MarkupText class="testClass" id="foo" />
+					</div>
+				</IntlProvider>
+			);
+
+			expect(root.innerHTML).to.equal('<div><div class="testClass markup">FOO!</div></div>');
+		});
+
 		it('should render text with scope', () => {
 			rndr(
 				<IntlProvider scope="foo" definition={{ foo: { bar: 'BAR!' } }}>

@@ -294,7 +294,19 @@ describe('intl', () => {
 				</IntlProvider>
 			);
 
-			expect(root.innerHTML).to.equal('<div><span>FOO!</span></div>');
+			expect(root.innerHTML).to.equal('<div><div class="markup">FOO!</div></div>');
+		});
+
+		it('should render with a given className', () => {
+			rndr(
+				<IntlProvider definition={{ foo: 'FOO!' }}>
+					<div>
+						<MarkupText class="testClass" id="foo" />
+					</div>
+				</IntlProvider>
+			);
+
+			expect(root.innerHTML).to.equal('<div><div class="testClass markup">FOO!</div></div>');
 		});
 
 		it('should render text with scope', () => {
@@ -306,7 +318,7 @@ describe('intl', () => {
 				</IntlProvider>
 			);
 
-			expect(root.innerHTML, '').to.equal('<div><span>BAR!</span></div>');
+			expect(root.innerHTML, '').to.equal('<div><div class="markup">BAR!</div></div>');
 		});
 
 
@@ -331,7 +343,7 @@ describe('intl', () => {
 				</IntlProvider>
 			);
 
-			expect(root.innerHTML, '').to.equal('<div><span><b>FOO</b></span></div>');
+			expect(root.innerHTML, '').to.equal('<div><div class="markup"><b>FOO</b></div></div>');
 		});
 
 		describe('mark', () => {
@@ -342,7 +354,7 @@ describe('intl', () => {
 					</IntlProvider>
 				);
 
-				expect(root.innerHTML).to.equal('<mark title="bar" style="background: rgba(119, 231, 117, 0.5);"><span><b>BAR!</b></span></mark>');
+				expect(root.innerHTML).to.equal('<mark title="bar" style="background: rgba(119, 231, 117, 0.5);"><div class="markup"><b>BAR!</b></div></mark>');
 			});
 
 			it('should render translations relying on a fallback with a yellow wrapping <mark>', () => {

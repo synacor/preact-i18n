@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { Text } from './text';
+import Markup from 'preact-markup';
 import { Localizer } from './localizer';
 import { HighlightI18N } from './highlight-i18n';
 
@@ -11,8 +12,6 @@ import { HighlightI18N } from './highlight-i18n';
  *	@param {String} props.id			Key to look up in intl dictionary, within any parent scopes (`$scope1.$scope2.$id`)
  *	@param {Object} [props.fields={}]	Values to inject into template `{{fields}}`.  Values in the `fields` object will be coerced to strings, with the exception of `<Text/>` nodes which will be resolved to their translated value
  *	@param {Number} [props.plural]		Integer "count", used to select plural forms
- *	@param {Object} context
- *	@param {Object} context.intl		[internal] dictionary and scope info
  *
  *	@example
  *	// If there is no dictionary in context..
@@ -42,15 +41,19 @@ import { HighlightI18N } from './highlight-i18n';
  *	// ..produces the vnode:
  *	<div/>
  */
-export function MarkupText(props) {
+export function MarkupText({ id, fields, plural, children, ...props }) {
 	return (
 		<Localizer>
-			<Html html={<Text {...props} />} id={props.id} />
+			<Html html={<Text id={id} fields={fields} plural={plural} children={children} />} id={id} {...props} />
 		</Localizer>
 	);
 }
 
-function Html({ html, id }) {
-	let value = !html ? html : typeof html === 'string' ? <span dangerouslySetInnerHTML={{ __html: html }} /> : <span>{html}</span> ;
-	return <HighlightI18N id={id} value={value} />;
+function Html({ html, id, ...props }) {
+	return (
+		<HighlightI18N
+			id={id}
+			value={!html ? html : typeof html === 'string' ? <Markup type="html" trim={false} {...props} markup={html} /> : <span>{html}</span>}
+		/>
+	);
 }

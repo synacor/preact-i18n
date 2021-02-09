@@ -88,7 +88,8 @@
     "webpack": "^4.29.6"
   },
   "dependencies": {
-    "dlv": "^1.1.2"
+    "dlv": "^1.1.2",
+    "preact-markup": "^2.0.0"
   },
   "peerDependencies": {
     "preact": ">=10"

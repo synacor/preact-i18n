@@ -113,6 +113,7 @@ The available forms for specifying pluralization values are as follows:
 
 -   `"key": { "singular":"apple", "plural":"apples" }`
 -   `"key": { "none":"no apples", "one":"apple", "many":"apples" }`
+-   `"key": { "zero":"no apples", "one":"apple", "other":"apples" }`
 -   `"key": ["apples", "apple"]`
 
 Taking `<Text id="news.totalStories" ..>` from our example:

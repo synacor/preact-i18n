@@ -29,7 +29,7 @@ export default function translate(id, scope, dictionary, fields, plural, fallbac
 		if (value.splice) {
 			value = value[plural] || value[0];
 		}
-		else if (plural===0 && defined(value.none)) {
+		else if (plural===0 && defined(value.none || value.zero)) {
 			value = value.none || value.zero;
 		}
 		else if (plural===1 && defined(value.one || value.singular)) {

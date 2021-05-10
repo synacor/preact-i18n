@@ -22,13 +22,14 @@ export default function translate(id, scope, dictionary, fields, plural, fallbac
 	// plural forms:
 	// key: ['plural', 'singular']
 	// key: { none, one, many }
+	// key: { zero, one, other }
 	// key: { singular, plural }
 	if ((plural || plural===0) && value && typeof value==='object') {
 		if (value.splice) {
 			value = value[plural] || value[0];
 		}
 		else if (plural===0 && defined(value.none)) {
-			value = value.none;
+			value = value.none || value.zero;
 		}
 		else if (plural===1 && defined(value.one || value.singular)) {
 			value = value.one || value.singular;

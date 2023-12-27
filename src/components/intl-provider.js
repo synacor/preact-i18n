@@ -1,7 +1,7 @@
 import { h } from 'preact';
-import { useContext } from 'preact/hooks';
+import { useEffect, useMemo, useState } from 'preact/hooks';
 import { IntlContext } from '../contexts/intl-context';
-import { assign, deepAssign } from '../lib/util';
+import { deepAssign } from '../lib/util';
 
 
 const URL_FLAG = /[?&#]intl=show/;
@@ -36,23 +36,28 @@ const URL_FLAG = /[?&#]intl=show/;
  */
 
 export function IntlProvider({ scope, mark, definition, ...props }) {
-	const { intl: parentIntl } = useContext(IntlContext);
-	let intl = assign({}, parentIntl || {});
+	const [dictionary, setDictionary] = useState({});
 
-	// set active scope for the tree if given
-	if (scope) intl.scope = scope;
+	const enableMark = useMemo(
+		() => typeof location !== 'undefined' && String(location).match(URL_FLAG),
+		[]
+	);
+	const value = useMemo(() => ({
+		intl: {
+			dictionary,
+			scope,
+			mark: mark || enableMark
+		}
+	}), [dictionary, enableMark, mark, scope]);
 
-	// merge definition into current with lower precedence
-	if (definition) {
-		intl.dictionary = deepAssign(intl.dictionary || {}, definition);
-	}
-
-	if (mark || (typeof location!=='undefined' && String(location).match(URL_FLAG))) {
-		intl.mark = true;
-	}
+	useEffect(() => {
+		// merge definition into current with lower precedence
+		if (definition)
+			setDictionary((prevDictionary) => deepAssign(prevDictionary, definition));
+	}, [definition]);
 
 	return (
-		<IntlContext.Provider value={{ intl }}>
+		<IntlContext.Provider value={value}>
 			{props.children}
 		</IntlContext.Provider>
 	);
